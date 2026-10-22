@@ -114,3 +114,20 @@ Screenshots (Chrome, installed extension): [Images, light](chrome-0.0.4-images-l
 ## Toolbar on/off state (0.0.5)
 
 Scripted Chrome 155: the 15 checks from 0.0.3 still pass; on, off (card and page listeners removed, Option+L inert), back on with a single card, and reset to off on reload all pass. Owner hand check after reloading both installed packages: the icon switches between off and on in Brave and Safari. Safari tints the off-state outline blue while the extension has page access; the filled on state remains distinct. The 0.0.4 Images hand checks (credits, Escape order, arrow keys between tabs) were not separately recorded here.
+
+## Brave re-install check (Curious 0.0.5)
+
+After the project folder was renamed to `Curious`, the owner re-installed both packages. Brave 155, owner profile, `reader.html`, card turned on by the owner's toolbar click; the rest driven through the Claude browser extension with real mouse and key input.
+
+| Check | Result |
+| --- | --- |
+| Drag-select "marine snow" → Learn more → card below the word, Marine snow definition, focus on Close | Pass |
+| Images tab: 3 Wikimedia Commons images loaded, credit line shown | Pass |
+| Arrow keys move between Explore and Images | Pass |
+| Enlarged image: caption, NOAA National Ocean Service · Public domain · Commons link; focus on Close image | Pass |
+| First Escape closes only the enlarged image; focus returns to the thumbnail; card stays open | Pass |
+| Web search window return: same term, definition, Images view; scrollY 573.5 before and after | Pass |
+| YouTube window return: same term and definition; scrollY 573.5 before and after | Pass (clean re-run; the first attempt was invalidated by page interaction while the window was open) |
+| Escape from page focus closes the card; scrollY unchanged | Pass |
+
+Not re-run here: toolbar off click (owner confirmed the icon switches in both browsers earlier), Safari after the re-install.
