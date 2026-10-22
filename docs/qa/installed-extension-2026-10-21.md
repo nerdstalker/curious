@@ -173,3 +173,156 @@ Screenshots (Chrome, installed extension): [Look up offer](chrome-0.0.6-lookup-o
 **Owner hand check.** After reloading both installed packages to 0.0.6 (the first attempt was still running 0.0.5, so no Look up button appeared), the owner confirmed follow-up lookups and the Back trail working in Brave and Safari. This is the owner's report; no scripted or measured checks were run in either browser, so it also covers Safari's `getComposedRanges` selection path only by that report.
 
 **Not verified.** Individual hand-check items in Brave and Safari were not recorded one by one. No VoiceOver pass, so the status announcements were checked as text only. Keyboard-only selection inside the definition needs caret browsing; without it, a keyboard user changes terms by editing the headline. Wikipedia links in the definition are not clickable (plain-text summary).
+
+## Real websites and accessibility pass (0.0.7, 2026-10-22)
+
+Both manifests are 0.0.7. `card.js` is byte-identical across the demo, `extension` and `safari-extension`, and `background.js` is identical across the two packages (checked with `cmp`). `node --check` passed for both. Permissions and host permissions are unchanged in the shipped manifests (activeTab, scripting, storage, and search for Chrome only; host `https://en.wikipedia.org/*`).
+
+**How it was run.** Chrome 155.0.8059.85, headless, throwaway profile, puppeteer-core, with a test copy of `extension/`. For real sites the copy's manifest adds `<all_urls>` to `host_permissions` (copy only), so the worker injects `card.js` in place of the toolbar click. The fixture tests add only `http://127.0.0.1:8765/*`. Selections are real mouse drags, keys are real key presses, and Wikipedia and the sites are live (fetched 2026-10-22, desktop Chrome user agent, 1280×800). The same suites were also run against the committed 0.0.6 files (`git archive HEAD`) to separate real defects from test artifacts. The test scripts are not in the repository; they live in the session scratchpad and the shared side-session notes folder (`realsites-a11y-0.0.7.md` describes them), so these counts can't be reproduced from the tree alone. **0.0.6: 121/143 real-site checks and 53/59 accessibility checks. 0.0.7: all pass (counts below).** Test-side only: where a site's own overlay covered the article, the harness removed it before selecting text (Guardian `aside` sign-in prompt; Verge `zephr` paywall script blocked). That is site behavior, not Curious, and it is logged in the run.
+
+### Sites
+
+| Site | URL (2026-10-22) | Notable for |
+| --- | --- | --- |
+| English Wikipedia | en.wikipedia.org/wiki/Bioluminescence | CSP with `default-src` allowing Wikimedia; sticky sidebars |
+| Long-form news | The Guardian long read (Oxford Street pedestrianisation), discovered from /news/series/the-long-read | `img-src https: data: blob:`; sticky ad slot; consent and sign-in overlays |
+| Substack | astralcodexten.com/p/mistakes | Fixed menu, custom fonts |
+| Docs with sticky header | MDN, CSS `position` | Sticky 98px header; strict CSP `default-src 'self'`, `img-src` allows upload.wikimedia.org but **not** thumb.wikimedia.org |
+| Strict CSP | github.com/microsoft/TypeScript (README) | `default-src 'none'`, `img-src` without Wikimedia; keyboard shortcuts `/`, `s`, `t` |
+| Dark theme | GitHub with system dark; The Verge article (always dark, discovered from the home page) | Dark page backgrounds; Verge paywall overlay locks body scroll |
+| Single-page app | react.dev/learn (Next.js) | Client-side navigation rewrites the article |
+
+### Checks per site (Chrome 155, installed test copy)
+
+Run on all seven sites, every one passing on 0.0.7:
+
+- Page load; card injected into a shadow root.
+- A mouse drag over an article word shows Learn more beside the word's end, and nothing covers it.
+- The card opens anchored to the word (gap 12px, above or below) with a live definition. Card and actions are inside the window, and five sample points on the card are on top of the page.
+- Focus moves to Close.
+- Page CSS doesn't leak: 50 computed styles on the card (fonts, sizes, line-height, colors, padding, borders, letter-spacing, text-transform, direction, width…) equal those on the fixture page in the same color scheme.
+- Images view (term set to "octopus" so the check doesn't depend on the picked word) loads all 6 thumbnails under the page's CSP. The enlarged image covers the window and loads. Escape closes it first, with focus back on its thumbnail.
+- Escape closes the card without moving the article (scrollX/scrollY unchanged). Focus/selection is back in the article.
+- Option/Alt+L opens the card for a selection.
+
+Extra checks:
+
+| Check | Site(s) | 0.0.6 | 0.0.7 |
+| --- | --- | --- | --- |
+| Page CSS leaks into the card | Guardian | **Fail**: card text 16px Times, line-height normal (a page `*` rule matched the host and beat `:host`) | Pass |
+| Pictures under a strict CSP | GitHub (6 CSP violations), MDN (5 violations, thumb host blocked) | **Fail on GitHub**: 0/6 loaded, all "Image blocked" | Pass: 6/6, via the worker's `data:` fallback |
+| Typing `/st` (GitHub) or `/` (MDN) in the headline stays in the card; a bubble-phase page `keydown` listener on `document` sees none of the card's keys (capture-phase page listeners on `window`/`document` still run first and are not blocked) | GitHub, MDN | **Fail**: GitHub's search took focus and the headline lost the text; page listener saw 2–3 key events; Escape then no longer reached the card | Pass: 0 events reach the page |
+| Escape from the headline field closes the card | GitHub, MDN | Fail (after the above) | Pass |
+| After Escape, focus/selection back in the article, not `<body>` | all | **Fail** (focus on `<body>`) | Pass (selection restored on the word) |
+| Web and YouTube windows open; closing each keeps the card, term and article scroll | Wikipedia (scrollY 706), Guardian (1179), MDN (1795) | Pass | Pass |
+| Word just under the sticky header: card below, anchored, actions visible, drawn over the header; word near the bottom: card above | MDN | Pass | Pass |
+| A full-window `position:fixed; z-index:2147483647` layer appended to `<html>` after the card | Wikipedia, MDN | **Fail**: covered at all 3 sample points | Pass (top layer) |
+| Selection in a text input, textarea, iframe: no Learn more, Option+L inert | Wikipedia, MDN | Pass | Pass |
+| Selection in `contenteditable` and `contenteditable="plaintext-only"` ignored | Wikipedia, MDN | **Fail**: Learn more shown, Option+L opened the card | Pass |
+| `<html>` positioned (`top:40px; left:24px`) | Wikipedia, MDN | **Fail**: trigger 46px low, card overlaps the word | Pass |
+| `<html>` transformed (`translateX(30px)`), including the enlarged image | Wikipedia, MDN | **Fail**: enlarged image drawn at y −2061 (MDN) / −769 (Wikipedia), 30px off | Pass |
+| Positioned and transformed `<body>` | Wikipedia, MDN | Pass | Pass |
+| `<html>` CSS zoom 1.25 | Wikipedia, MDN | **Fail**: trigger and card hundreds of px away | Pass |
+| Horizontal overflow, page scrolled 300px right | Wikipedia, MDN | Pass | Pass |
+| Dark site: card uses its own dark palette (`#1f2228`) and dark text colors | GitHub (system dark), Verge (system light: card stays light) | Pass | Pass |
+| Client-side navigation (no page load) keeps the card; selecting on the new content works | react.dev | Pass | Pass |
+| Page removes the card host (as a full re-render would): Curious puts it back | react.dev | **Fail** | Pass |
+
+Not covered by the scripted run: pages inside cross-origin iframes as the target article (the card runs in the top frame only, by design), Shadow-DOM-heavy article markup, right-to-left pages (the card now forces `direction: ltr` on itself), and sites behind sign-in. Google answered the scripted Web window with its automated-traffic page; the window opening and the return are what was checked.
+
+### Accessibility (fixture article, Chrome 155)
+
+| Check | 0.0.6 | 0.0.7 |
+| --- | --- | --- |
+| Option/Alt+L with a keyboard selection opens the card; focus on Close | Pass | Pass |
+| Tab order: Close → (Back, when there is a trail) → headline → Explore tab → CC BY-SA 4.0 link → Read on Wikipedia → Web → YouTube. Nothing hidden is focusable | Pass | Pass |
+| Explore/Images: Arrow Right/Left select and focus with wrap; Home/End | Pass | Pass |
+| Tab from Images goes into the gallery; Enter enlarges; focus on Close image; Tab stays inside; Escape closes only the image and returns to its thumbnail | Pass | Pass |
+| Headline edit by keyboard adds Back; Back is the next stop after Close; name "Back to marine snow"; Enter restores and focus moves to Close when the trail is empty | Pass | Pass |
+| Escape closes the card; article does not move | Pass | Pass |
+| Focus returns to the article: the looked-up words are selected again, so Tab and caret browsing continue from there | **Fail**: focus dropped to `<body>`, the next Tab started at the top of the page | Pass |
+| Opened from a focused link: Escape returns focus to that link | Pass | Pass |
+| AX tree (Chrome, via CDP): dialog "Learn more: marine snow", button "Close card", textbox "Search term", tablist "View" with tabs Explore/Images, tabpanel, link "Read on Wikipedia (opens in a new tab)", buttons Web/YouTube, status regions | Pass | Pass |
+| No page landmarks from the card | **Fail**: card header and footer exposed as banner and contentinfo | Pass (`role="none"`) |
+| 200% zoom (640×400 CSS px), word mid-window and near the bottom | **Fail** (mid-window word; near the bottom passed): Read on Wikipedia, Web and YouTube clipped inside the card where nobody could reach them | Pass: card pinned inside the window, all visible |
+| 400% zoom (320×200 CSS px) | **Fail**: headline and actions clipped | Pass: pinned card shows term, tabs and at least 3 lines of definition; actions reached by scrolling the card (mouse, trackpad or Tab) |
+| Narrow 320px window | Pass | Pass |
+| Short 1280×360 window | **Fail** for a mid-window word (actions clipped); near the bottom passed | Pass |
+| `prefers-reduced-motion: reduce`: no animation, no transitions; `no-preference`: 160ms fade-in | Pass | Pass |
+
+Contrast, read from the live card's tokens (WCAG 2.2: 4.5:1 text, 3:1 non-text). All pass in both themes; the values are unchanged from 0.0.6.
+
+| Pair | Light | Dark |
+| --- | --- | --- |
+| Ink on card (term, definition, status, chips, selected tab) | 17.03:1 | 13.61:1 |
+| Muted on card (Wikipedia label, credits, Esc hint, icons) | 5.27:1 | 6.44:1 |
+| Muted on tab track / thumbnail background (unselected tab, "Image blocked") | 4.70:1 | 5.51:1 |
+| Link on card (Read on Wikipedia, Back, fallback) | 8.01:1 | 8.34:1 |
+| Link on hover background (Back hover) | 7.13:1 | 7.13:1 |
+| Ink on hover background (chip hover) | 15.17:1 | 11.64:1 |
+| Learn more / Look up pill (card color on ink) | 17.03:1 | 13.61:1 |
+| Learn more shortcut hint (65% opacity) | 7.85:1 | 4.69:1 (closest to the limit) |
+| Focus ring vs card (non-text) | 8.01:1 | 8.34:1 |
+| Headline dotted underline vs card (non-text) | 5.27:1 | 6.44:1 |
+| Chip and tab borders (advisory: text labels identify the controls) | 1.29:1 | 1.37:1 |
+
+Advisory, not changed: the selected tab is marked by a white pill, weight 500 and ink color versus muted. The pill against the track is only 1.1:1, so the state rests on the text difference. Tab after the last card control (YouTube) leaves the card to the top of the document; Escape is the documented way back to the article.
+
+### Fixes in 0.0.7
+
+`card.js`:
+- Popovers (top layer) for Learn more, the card and the enlarged image, with fallback to the old positioning where popover is unsupported.
+- `all:initial !important` inline on the host, with tokens and fonts moved to the card's own elements.
+- Key events stopped at the shadow root, with Escape and Option+L handled there.
+- `isContentEditable` covers editable text.
+- Keyboard-only selection restore on close; focus still returns to the opening control.
+- A MutationObserver re-attaches the host.
+- CSS-zoom-aware coordinates.
+- Pinned, scrollable layout when there is less than 240px beside the word.
+- Header and footer `role="none"`.
+
+`background.js` (both packages): an `image` message fetches only from upload/thumb.wikimedia.org with credentials and referrer omitted, accepts JPEG/PNG/GIF/WebP/SVG up to 8 MB, and returns a `data:` URL. It runs only after an image fails to load.
+
+### Regression suites re-run on 0.0.7
+
+| Suite | Result |
+| --- | --- |
+| 0.0.3 card (anchoring, search/YouTube return, Escape, Option+L, flip above, 400px, dark) | 15/15 |
+| 0.0.4 images (switcher, lightbox, Escape order, stale results, demo error/retry) | 26/26 |
+| 0.0.6 trail (follow-ups, Back, cap of 10, stale guard, toolbar off/on, demo) | 27/27 |
+| Accessibility pass (above) | 59/59 |
+| Real sites (above) | 145/145 (0.0.6: 121/143; GitHub's two lightbox checks only run once pictures load) |
+
+The first 0.0.7 run of the trail suite failed one check: closing with the mouse restored the article selection, so the suite's next drag over the same word became a drag-and-drop. Since then, only a keyboard close (Escape, or Enter/Space on Close) restores the selection.
+
+Screenshots (Chrome, installed test copy): [GitHub, dark, strict CSP](chrome-0.0.7-github-dark-csp-2026-10-22.png), [MDN, word under the sticky header](chrome-0.0.7-mdn-sticky-header-2026-10-22.png), [Wikipedia with transformed `<html>`](chrome-0.0.7-wikipedia-transformed-html-2026-10-22.png), [200% zoom](chrome-0.0.7-zoom-200-2026-10-22.png), [400% zoom, pinned card](chrome-0.0.7-zoom-400-2026-10-22.png).
+
+**VoiceOver.** Not run. Turning VoiceOver on and driving Safari needs system accessibility settings and Safari keyboard control, which this session doesn't have. The Chrome AX tree above is the closest automated evidence. VoiceOver steps are in the hand-check list.
+
+### Owner hand-check list (Brave and Safari, 0.0.7)
+
+Reload both packages first and confirm the version reads 0.0.7 (Brave: brave://extensions; Safari: Settings → Extensions). In Safari, rebuild and run the Curious app from Xcode, or re-add the temporary extension. Turn Curious on with the toolbar button on each page.
+
+Both browsers, on a real page (e.g. en.wikipedia.org/wiki/Bioluminescence and a GitHub README):
+
+1. Select a word with the mouse. Learn more appears beside it; open the card. The card sits under or over the word and is drawn above the page's sticky header.
+2. Images on GitHub: thumbnails appear (0.0.6 showed "Image blocked"). Click one: the enlarged image covers the window. **Safari is the open question here.** If Safari still shows "Image blocked", note it: Safari may apply the page CSP to `data:` images differently.
+3. On GitHub, click into the headline and type `/` and `s`. The letters go into the headline and GitHub's search does not open. Escape closes the card.
+4. On the Guardian or any site with a cookie or consent banner: the card is drawn above the banner.
+5. In any comment box or text field, select text: no Learn more, and Option+L does nothing.
+6. Option+L on a selected word opens the card; Escape closes it. The word is selected again, and the next Tab moves on from the word, not from the top of the page.
+7. Web and YouTube from a word far down a long article: close each window, and the article is at the same place with the card open.
+8. Browser zoom 200% (Cmd + four times) on the fixture or any article: open the card. The actions are visible, or reachable by scrolling inside the card. Then try 400% if the browser allows it (Brave up to 500%; Safari up to 300%).
+9. Dark mode (System Settings → Appearance → Dark): the card is dark on a light site and on GitHub.
+10. **Safari 17+ only:** step 1 also checks the card renders at all, because 0.0.7 shows it with the popover API. If the card shows but sits in the wrong place, or does not appear, report the Safari version.
+
+VoiceOver in Safari (Cmd+F5 turns it on; VO = Control+Option):
+
+1. Select "marine snow" on the fixture (http://127.0.0.1:8765/reader.html), then press Option+L. Expected: VoiceOver says "Close card, button", in a "Learn more: marine snow" dialog or web dialog.
+2. VO+Right through the card. Expected order: Close card; Search term, edit text "marine snow"; View, tab group, Explore, selected tab, 1 of 2; then the definition text, "From “Marine snow”", "CC BY-SA 4.0, link", "Read on Wikipedia (opens in a new tab), link", "Web, button", "YouTube, button", "Esc to close".
+3. When the definition arrives, VoiceOver should read it once (polite live region). Note whether it reads it twice or not at all.
+4. On the Explore tab, press Right Arrow (not VO+Right). Expected: "Images, selected tab". When the pictures load, note how much is announced: the Images panel is a live region, and reading six credits may be too verbose.
+5. Tab to the first thumbnail. Expected: "Enlarge image: <caption>, button". Press VO+Space. Expected: "Close image, button" inside an "Enlarged image" dialog. VO+Right should not leave the dialog. Escape returns to the thumbnail.
+6. Edit the headline to "plankton" and press Return. Then Shift+Tab to Back. Expected: "Back to marine snow, button". Press VO+Space. Expected: "Back to marine snow" announced, and focus on Close card.
+7. Escape. Expected: the card closes, and VoiceOver lands back on the article text at "marine snow" rather than at the top of the page.
+8. VO+U (rotor) → Landmarks while the card is open: there should be no extra banner or content-information landmark from the card.

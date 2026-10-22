@@ -72,3 +72,19 @@ Closing the card (Close, Escape, or the toolbar button) clears the trail, and op
 Checked in scripted Chrome 155 (installed extension) and the standalone demo; the owner confirmed it working by hand in Brave and Safari. See the QA report.
 
 This is throwaway interaction code, not a production extension or complete MVP.
+
+## Real websites and accessibility (0.0.7)
+
+Tested on seven real sites (English Wikipedia, a Guardian long read, a Substack post, MDN, a GitHub README, a Verge article, react.dev) and in a keyboard, zoom and contrast pass. Fixes:
+
+- The card, Learn more and the enlarged image now open in the browser's top layer (popover), so they stay above any page layer, including max-z-index consent banners. They also stay beside the word when the page moves, transforms or zooms `<html>`. Browsers without popover support use the old positioning.
+- Page CSS can no longer restyle the card: the host carries `all: initial !important` inline, and the colors and fonts live on the card's own elements instead of the host. The Guardian previously turned the card's text into 16px Times.
+- Keys typed in the card no longer reach the page's ordinary (bubble-phase) listeners, which is how GitHub and MDN bind their shortcuts. A page that listens in the capture phase still sees them first. Typing `/`, `s` or `t` in the headline no longer triggers GitHub or MDN search shortcuts. Escape and Option+L are handled inside the card.
+- Selections in every kind of editable text (inputs, textareas, any `contenteditable`, including `plaintext-only`) are ignored.
+- Escape puts the keyboard back where the reader was: on the link that opened the card, or on the looked-up words in the article (the selection is restored), instead of dropping focus to the top of the page. A mouse click on Close still leaves the article selection alone.
+- If a page re-renders and removes the card, it is put back.
+- Strict CSPs (GitHub, MDN) no longer block pictures. When a thumbnail or the enlarged image is blocked, the extension's worker fetches the same file from upload/thumb.wikimedia.org as an anonymous CORS request and returns it as a `data:` URL. No new permission is needed: Wikimedia allows any origin. If the page also blocks `data:` images, the existing "Image blocked" label remains.
+- At 200%/400% zoom and in short windows, the card is pinned inside the window and its body scrolls, so the actions are never clipped out of reach.
+- The card's header and footer are no longer announced as page-level banner and contentinfo landmarks.
+
+Both manifests are 0.0.7; permissions are unchanged. See the QA report for every site and check, and the owner's hand-check list for Brave, Safari and VoiceOver.

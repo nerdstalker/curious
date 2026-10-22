@@ -53,6 +53,42 @@ The return-path test used a scrolled repository README, rather than a second, lo
 - [Brave retained card after YouTube](brave-0.0.7-after-youtube-2026-10-22.png)
 - [Brave next Tab at top, restored language selection](brave-0.0.7-next-tab-top-2026-10-22.png)
 
+## Fix in 0.0.8: next Tab after Escape (2026-10-22)
+
+Both manifests are 0.0.8 (Chrome name stays "Be Curious", short name "Curious"). Only `card.js` changed. It is byte-identical in the demo, `extension` and `safari-extension` (checked with `cmp`), and `node --check` passes.
+
+**Cause.** On GitHub, the double-click that selects "language" also focuses GitHub's content pane (`div#repos-split-pane-content`, `tabindex="0"`, no role). Curious remembered that pane as the "previously focused control", and Escape focused it again, so the next Tab started at the pane's first link (the repository name) and the page scrolled up. On pages with no focused container, a second cause gave the same result: focus fell to `<body>` when the hidden Close button lost it, and the restored selection doesn't move Chrome's Tab starting point. The next Tab or Shift+Tab then started from the card's host at the end of the document.
+
+**Change.** On a keyboard close, if the remembered element is a plain container around the looked-up words (not a link, button, tab or similar), the reader's place is the words. Curious inserts an empty `tabindex="-1"` span just after the words, focuses it with `preventScroll`, then restores the selection. The span removes itself as soon as focus moves on in the page (Tab, a click, the toolbar off). Switching windows or tabs leaves it in place for the reader's return. Unchanged: focus going back to a link or button that opened the card, mouse Close leaving the selection alone, and the Escape order (enlarged image first, then card).
+
+**Scripted repro** (Chrome 155.0.8059.85, headless, puppeteer-core, test copy with `http://127.0.0.1:8765/*` plus `https://github.com/*` added to host permissions, copy only). Real double-click, Option/Alt+L, Escape, then a real Tab or Shift+Tab. Fixtures: a plain article with links before and after the word, and a GitHub-like page with header links, a `tabindex="0"` content pane and the README sentence. Plus the live `github.com/microsoft/TypeScript` README. The harness is `nexttab-0.0.8-harness.js` in the shared side-session notes folder, not in the repository.
+
+| Check | 0.0.7 | 0.0.8 |
+| --- | --- | --- |
+| Plain fixture: next Tab | `<body>` (left the page) | link right after the word, scroll unchanged (1292) |
+| Plain fixture: Shift+Tab | last link on the page, scroll 1292 → 2608 | link right before the word, scroll unchanged |
+| GitHub-like: next Tab | pane's first link, scroll 803 → 0 | link after the word, scroll unchanged |
+| GitHub-like: Shift+Tab | header "Pull requests", scroll → 0 | link before the word, scroll unchanged |
+| Live GitHub README: next Tab | `/microsoft/TypeScript` repo link, scroll 1164 → 309 | README "playground" link, scroll unchanged (1164) |
+| Switch tabs and back, then Tab | `<body>` | link after the word |
+| Whole repro suite | 18/28 | **28/28** |
+
+Also covered, passing on 0.0.8: Escape still restores the word with no scroll, focus still returns to a focused page button, mouse Close adds no marker, a click elsewhere and the toolbar off remove it, and the page DOM is back as it was after Tab. Two real defects in the first draft of the fix were caught here and fixed: removing the focused marker threw, which stopped toolbar off from removing the card, and a link wrapping the words lost its focus return (caught by the accessibility suite).
+
+**Regression suites re-run on 0.0.8:** 0.0.3 card 15/15, 0.0.4 images 26/26, 0.0.6 trail 27/27, accessibility 59/59. The live real-sites suite was not re-run.
+
+**Safari (reasoning, not run).** No WebKit build was available here. In WebKit's `FrameSelection::setFocusedElementIfNeeded`, a non-editable range selection only moves focus when caret browsing is on, so restoring the selection after focusing the marker leaves focus on the marker. Focusing first also avoids WebKit clearing the selection when focus moves. Safari's Tab skips links unless Settings → Advanced → "Press Tab to highlight each item on a webpage" is on, or Option+Tab is used.
+
+**Owner hand check (Brave and Safari, 0.0.8).** Reload the package and confirm 0.0.8. In Safari, turn on "Press Tab to highlight each item" first, or use Option+Tab below.
+1. Open `https://github.com/microsoft/TypeScript`, scroll to the README sentence "TypeScript is a language for application-scale JavaScript", and turn Curious on.
+2. Double-click "language", press Option+L, then Escape. "language" should be selected again and the page should not move.
+3. Press Tab. Focus should land on the next link after the word in the README (the "playground" link in this paragraph today), with no jump to the top. Reload and repeat with Shift+Tab: focus should land on the nearest link before the word, not at the top or bottom of the page. (Shift+Tab was scripted on the fixtures only, not on live GitHub.)
+4. Open a card with the mouse (Learn more), then click Close. The selection and focus should behave as in 0.0.7.
+
 ## Cleanup
+
+For the subsequent independent installed 0.0.8 check, see [next-Tab retest: Brave passes; Safari still jumps to the top](installed-extension-0.0.8-next-tab-2026-10-22.md).
+
+The 0.0.8 Safari reasoning above did not hold in installed Safari. The 0.0.9 diagnosis, change, WebKit evidence and replacement hand check are in [Fix in 0.0.9](installed-extension-0.0.8-next-tab-2026-10-22.md#fix-in-009-safari-diagnosis-and-change-2026-10-22-not-yet-observed-in-installed-safari).
 
 System Appearance was restored from Dark to its original **Auto** setting. Tested page zoom was restored to **100%**. Extension-created Web/YouTube windows were closed. Installed extensions remain enabled. Existing source/document changes were preserved. Only QA documentation and screenshots were added by this test; no commit or push was made.

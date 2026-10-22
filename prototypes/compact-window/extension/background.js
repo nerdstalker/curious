@@ -28,6 +28,21 @@ chrome.runtime.onMessage.addListener((message,sender,reply)=>{
     CuriousWikipedia.images(message.query,controller.signal).then(result=>reply({ok:true,result}),()=>reply({ok:false})).finally(()=>clearTimeout(timeout));
     return true;
   }
+  // Picture bytes for a page whose CSP blocks Wikimedia images. Only the two Wikimedia image hosts; anonymous CORS (no host permission).
+  if(message.type==='image'){
+    let url;try{url=new URL(message.url);}catch{reply({ok:false});return;}
+    if(!['https://upload.wikimedia.org','https://thumb.wikimedia.org'].includes(url.origin)){reply({ok:false});return;}
+    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),10000);
+    fetch(url.origin+url.pathname,{credentials:'omit',referrerPolicy:'no-referrer',signal:controller.signal}).then(async res=>{
+      const type=(res.headers.get('content-type')||'').split(';')[0].trim();
+      if(!res.ok||!/^image\/(jpeg|png|gif|webp|svg\+xml)$/.test(type))throw new Error('Not an image');
+      if(+res.headers.get('content-length')>8e6)throw new Error('Too large');
+      const bytes=new Uint8Array(await res.arrayBuffer());if(bytes.length>8e6)throw new Error('Too large');
+      let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
+      reply({ok:true,data:'data:'+type+';base64,'+btoa(bin)});
+    }).catch(()=>reply({ok:false})).finally(()=>clearTimeout(timeout));
+    return true;
+  }
   if(message.type!=='explore')return;
   if(!['search','youtube'].includes(message.provider)||typeof message.query!=='string'||!message.query.trim()||message.query.length>200){reply({ok:false});return;}
   (async()=>{
