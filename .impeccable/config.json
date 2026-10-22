@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "prototypes/compact-window/card.js"
+        ],
+        "createdAt": "2026-10-22T01:11:32.989Z",
+        "reason": "Claude: #viewer-img is the hidden lightbox image; src is assigned at runtime when a thumbnail is enlarged"
+      }
+    ]
+  }
+}
