@@ -69,6 +69,6 @@ A Back link under the header ("← marine snow") steps back one term at a time a
 
 Closing the card (Close, Escape, or the toolbar button) clears the trail, and opening a card from the article starts fresh. Escape order is unchanged: the enlarged image first, then the card. A lookup that answers after you have moved on is still ignored. Wikipedia links inside the definition are not clickable: the summary service returns plain text, and links would need its HTML plus sanitizing, so that was left out.
 
-Checked in scripted Chrome 155 (installed extension) and the standalone demo; see the QA report. Brave and Safari need a hand check.
+Checked in scripted Chrome 155 (installed extension) and the standalone demo; the owner confirmed it working by hand in Brave and Safari. See the QA report.
 
 This is throwaway interaction code, not a production extension or complete MVP.
