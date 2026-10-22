@@ -1,5 +1,7 @@
 # Installed-extension QA — 2026-10-21
 
+Installed 0.0.7 Brave/Safari hand-check results: [2026-10-22 observed results and evidence](installed-extension-0.0.7-2026-10-22.md).
+
 Target: local Apture compact-window experiment, initially 0.0.1 and then 0.0.2, installed in the owner's existing Brave and Safari profiles on macOS 27.0.1 (26A434). No extension API relay or YouTube API credentials.
 
 Versions: Brave application bundle 155.1.97.56; Safari 27.0.1. Brave's Chromium engine version was not separately collected.
