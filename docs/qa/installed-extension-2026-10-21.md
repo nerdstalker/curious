@@ -131,3 +131,41 @@ After the project folder was renamed to `Curious`, the owner re-installed both p
 | Escape from page focus closes the card; scrollY unchanged | Pass |
 
 Not re-run here: toolbar off click (owner confirmed the icon switches in both browsers earlier), Safari after the re-install.
+
+Safari after the re-install: the owner confirmed Curious 0.0.5 working in Safari after re-installing the package. This is the owner's report; no scripted or measured checks were run in Safari.
+
+## Follow-up lookups and Back trail (0.0.6)
+
+Both manifests are 0.0.6. `card.js` is byte-identical across the demo, `extension` and `safari-extension` (checked with `cmp`); no other script changed and host permissions are unchanged. `node --check card.js` passed.
+
+**How it was verified.** Same setup as 0.0.4: Chrome 155.0.8059.85, headless, throwaway profile, puppeteer-core with a test copy of `extension/` whose manifest adds only `http://127.0.0.1:8765/*` to `host_permissions`, so the worker injects `card.js` in place of the toolbar click. Fixture `reader.html` (and `index.html` for the demo) served by `python3 -m http.server` on 127.0.0.1:8765. Selections in the article and inside the card were real mouse drags; keys were real key presses; Wikipedia traffic was live. The toolbar off/on checks call the same `__curiousCard.off()` function the toolbar click runs, through the worker. 27 new checks, plus the earlier suites re-run against 0.0.6.
+
+| Check (Chrome 155) | Result |
+| --- | --- |
+| Card opened from the article has no trail; focus on Close | Pass |
+| Dragging across "detritus" in the marine snow definition shows "Look up “detritus”" next to it | Pass |
+| Look up shows Detritus in the same card on Explore; card position unchanged (same left/top, still below the word) | Pass |
+| Trail reads "← marine snow"; focus on Back; "Showing detritus" announced in the status line | Pass |
+| Term, trail and actions stay inside the window | Pass |
+| Headline edit to "plankton" adds one step ("Back to detritus, 2 earlier terms"); an edit that ends on the same term adds none | Pass |
+| Back by keyboard (Enter) restores detritus with its Images view and both pictures immediately, not busy; trail "← marine snow"; "Back to detritus" announced | Pass |
+| Back again (Space) returns to marine snow on Explore with its definition; trail hidden; focus on Close | Pass |
+| Option/Alt+L with "organic" selected in the definition looks it up in the same card | Pass |
+| Stale guard: start an uncached lookup, go Back before it answers; 3 s later the restored term and text are unchanged | Pass |
+| YouTube window from a follow-up term: closing it keeps term, definition, trail and scrollY (524) | Pass |
+| Escape closes the enlarged image first (card and trail stay), then the card; scrollY unchanged | Pass |
+| Reopening from the article starts fresh; the Close button also clears the trail | Pass |
+| 12 headline edits leave exactly 10 Back steps | Pass |
+| Card flipped above the word: follow-up keeps it above and clear of the word, actions visible | Pass |
+| 400px window: card and trail fit | Pass |
+| Dark mode: dark card background, Back link uses the dark link color | Pass |
+| Toolbar off removes the card and Option+L does nothing; back on gives one card with no trail; reload resets to off | Pass |
+| Standalone demo: follow-up and Back work; going Back made 0 Wikipedia requests | Pass |
+| The 15 checks from 0.0.3 (anchoring, search/YouTube return, Escape, Option+L, flip above, 400px, dark) | 15/15 pass |
+| The 26 Images checks from 0.0.4 (switcher, lightbox, Escape order, stale results, demo error/retry) | 26/26 pass |
+
+Two first-run failures were fixed before the final run: an edit that ended on the same term still added a step (the browser fires no `change` event when the value is unchanged; the step is now committed on blur or Enter), and the toolbar-on check was dragging over text that was still selected, which starts a drag-and-drop instead of a selection (a test-script issue; the selection is now cleared first).
+
+Screenshots (Chrome, installed extension): [Look up offer](chrome-0.0.6-lookup-offer-2026-10-21.png), [trail, light](chrome-0.0.6-trail-light-2026-10-21.png), [trail, dark](chrome-0.0.6-trail-dark-2026-10-21.png), [trail at 400px](chrome-0.0.6-trail-400px-2026-10-21.png).
+
+**Not verified.** Brave and Safari 0.0.6 were not run. Selecting text inside the card relies on Chrome's shadow-root selection; Safari uses `getComposedRanges`, with a plain-selection fallback, and that path has not been run. No VoiceOver pass, so the status announcements were checked as text only. Keyboard-only selection inside the definition needs caret browsing; without it, a keyboard user changes terms by editing the headline. Wikipedia links in the definition are not clickable (plain-text summary).

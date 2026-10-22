@@ -51,13 +51,21 @@
   nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px;margin-top:2px}
   #reference{color:var(--link);font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:5px;margin-right:auto;padding:4px 0}#reference:hover{text-decoration:underline}
   .chip{border:1px solid var(--line);background:none;border-radius:6px;padding:5px 10px;min-height:30px;font-size:13px;display:inline-flex;align-items:center;gap:6px}.chip:hover{background:var(--hover);border-color:var(--muted)}
+  .trail{flex:none;display:flex;min-width:0;margin:-4px 0 -6px}
+  #back{min-width:0;max-width:100%;display:inline-flex;align-items:center;gap:5px;border:0;background:none;border-radius:6px;padding:2px 8px 2px 5px;margin-left:-5px;min-height:26px;font-size:13px;color:var(--link)}#back:hover{background:var(--hover)}
+  #back-term{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #lookup{position:absolute;z-index:1;max-width:calc(100% - 16px);border:0;border-radius:999px;padding:4px 11px;min-height:28px;background:var(--ink);color:var(--bg);font-size:12.5px;font-weight:500;box-shadow:var(--shadow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   footer{font-size:12px;color:var(--muted)}footer p{margin:0}
   #status{color:var(--ink)}#status:not(:empty){margin-bottom:4px}#fallback{display:block;color:var(--link);margin-bottom:4px}
   kbd{font:11px var(--mono)}.hint kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px}
   @media (prefers-reduced-motion:no-preference){section:not([hidden]){animation:in .16s ease-out}@keyframes in{from{opacity:0;transform:translateY(var(--from,4px))}}}
-  </style><button id="trigger" hidden aria-keyshortcuts="Alt+L">Learn more <kbd aria-hidden="true">${mac?'⌥L':'Alt+L'}</kbd></button><section hidden role="dialog" aria-label="Learn more" data-side="below"><span class="arrow" aria-hidden="true"></span><div class="body"><header><span class="src"><span class="w" aria-hidden="true">W</span>Wikipedia</span><button id="close" aria-label="Close card">${icon.close}</button></header><label class="term"><span class="vh">Search term</span><input id="query" maxlength="200" spellcheck="false" autocomplete="off">${icon.edit}</label><div class="views" role="tablist" aria-label="View"><button id="tab-explore" role="tab" aria-selected="true" aria-controls="definition">Explore</button><button id="tab-images" role="tab" aria-selected="false" aria-controls="images" tabindex="-1">Images</button></div><div id="definition" class="panel" role="tabpanel" aria-labelledby="tab-explore" aria-live="polite" aria-busy="false"><p id="excerpt"></p><p id="credit" hidden><span id="source"></span> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p><button id="retry" class="chip" hidden>Try again</button></div><div id="images" class="panel" role="tabpanel" aria-labelledby="tab-images" aria-live="polite" aria-busy="false" hidden><p id="images-status" class="note"></p><ul id="gallery" aria-label="Images"></ul><p id="images-credit" class="cr" hidden></p><button id="images-retry" class="chip" hidden>Try again</button></div><nav aria-label="Explore further"><a id="reference" target="_blank" rel="noopener noreferrer"><span id="reference-label">Search Wikipedia</span>${icon.out}<span class="vh"> (opens in a new tab)</span></a><button id="search" class="chip">${icon.search}Web</button><button id="youtube" class="chip">${icon.play}YouTube</button></nav><footer><p id="status" role="status"></p><a id="fallback" target="_blank" rel="noopener noreferrer" hidden>Open search in a normal tab instead</a><p class="hint"><kbd>Esc</kbd> to close · your place is kept</p></footer></div></section><div id="viewer" role="dialog" aria-modal="true" aria-label="Enlarged image" hidden><figure><img id="viewer-img" alt="" referrerpolicy="no-referrer" crossorigin="anonymous"><figcaption><div><p id="viewer-caption"></p><p id="viewer-credit"></p></div><button id="viewer-close">${icon.close}Close image</button></figcaption></figure></div>`;
+  </style><button id="trigger" hidden aria-keyshortcuts="Alt+L">Learn more <kbd aria-hidden="true">${mac?'⌥L':'Alt+L'}</kbd></button><section hidden role="dialog" aria-label="Learn more" data-side="below"><span class="arrow" aria-hidden="true"></span><div class="body"><header><span class="src"><span class="w" aria-hidden="true">W</span>Wikipedia</span><button id="close" aria-label="Close card">${icon.close}</button></header><div id="trail" class="trail" hidden><button id="back"><span aria-hidden="true">←</span><span id="back-term"></span></button></div><p id="announce" class="vh" role="status"></p><label class="term"><span class="vh">Search term</span><input id="query" maxlength="200" spellcheck="false" autocomplete="off">${icon.edit}</label><div class="views" role="tablist" aria-label="View"><button id="tab-explore" role="tab" aria-selected="true" aria-controls="definition">Explore</button><button id="tab-images" role="tab" aria-selected="false" aria-controls="images" tabindex="-1">Images</button></div><div id="definition" class="panel" role="tabpanel" aria-labelledby="tab-explore" aria-live="polite" aria-busy="false"><p id="excerpt"></p><p id="credit" hidden><span id="source"></span> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p><button id="retry" class="chip" hidden>Try again</button></div><div id="images" class="panel" role="tabpanel" aria-labelledby="tab-images" aria-live="polite" aria-busy="false" hidden><p id="images-status" class="note"></p><ul id="gallery" aria-label="Images"></ul><p id="images-credit" class="cr" hidden></p><button id="images-retry" class="chip" hidden>Try again</button></div><button id="lookup" hidden></button><nav aria-label="Explore further"><a id="reference" target="_blank" rel="noopener noreferrer"><span id="reference-label">Search Wikipedia</span>${icon.out}<span class="vh"> (opens in a new tab)</span></a><button id="search" class="chip">${icon.search}Web</button><button id="youtube" class="chip">${icon.play}YouTube</button></nav><footer><p id="status" role="status"></p><a id="fallback" target="_blank" rel="noopener noreferrer" hidden>Open search in a normal tab instead</a><p class="hint"><kbd>Esc</kbd> to close · your place is kept</p></footer></div></section><div id="viewer" role="dialog" aria-modal="true" aria-label="Enlarged image" hidden><figure><img id="viewer-img" alt="" referrerpolicy="no-referrer" crossorigin="anonymous"><figcaption><div><p id="viewer-caption"></p><p id="viewer-credit"></p></div><button id="viewer-close">${icon.close}Close image</button></figcaption></figure></div>`;
   const $=id=>root.getElementById(id); const panel=root.querySelector('section');let selected='',lastFocus,lookupVersion=0,lookupTimer,lookupController;
   let pending=null,anchor=null,side='below',view='explore',imageVersion=0,imageController,imagesFor=null,imageItems=[],viewerFrom=null;const editable='input,textarea,[contenteditable="true"]';
+  // Back trail: earlier terms in this card, newest last. term is the current step; editing pushes once per edit.
+  let trail=[],term='',editStep=null;const TRAIL_MAX=10,cache=new Map();
+  const cached=(kind,q)=>cache.get(kind+':'+q.toLowerCase());
+  function remember(kind,q,result){const k=kind+':'+q.toLowerCase();cache.delete(k);cache.set(k,result);if(cache.size>40)cache.delete(cache.keys().next().value);}
   function urlFor(provider,q){const bases={youtube:'https://www.youtube.com/results?search_query=',google:'https://www.google.com/search?q=',duck:'https://duckduckgo.com/?q=',bing:'https://www.bing.com/search?q='};return bases[provider]+encodeURIComponent(q);}
   // Anchors are stored in page coordinates so the note stays beside its text if the reader scrolls.
   const clamp=(v,min,max)=>Math.max(min,Math.min(v,max));
@@ -81,13 +89,14 @@
   const resizer=new ResizeObserver(()=>{if(!panel.hidden&&anchor&&side==='above')placeCard(true);});resizer.observe(panel);
   addEventListener('resize',()=>{if(!panel.hidden)placeCard(true);},on);
   function label(){const q=$('query').value.trim();panel.setAttribute('aria-label',q?'Learn more: '+q:'Learn more');}
-  function show(q,at=pending){selected=q;anchor=at;lastFocus=document.activeElement;$('query').value=q;$('trigger').hidden=true;$('status').textContent='';$('fallback').hidden=true;label();setView('explore');panel.hidden=false;placeCard();update();$('close').focus({preventScroll:true});}
+  function show(q,at=pending){selected=q;anchor=at;lastFocus=document.activeElement;$('query').value=q;term=q;trail=[];editStep=null;renderTrail();hideLookup();$('trigger').hidden=true;$('status').textContent='';$('fallback').hidden=true;label();setView('explore');panel.hidden=false;placeCard();update();$('close').focus({preventScroll:true});}
   function stopLookup(){clearTimeout(lookupTimer);lookupController?.abort();lookupVersion++;$('definition').setAttribute('aria-busy','false');}
   function update(delay=0){
     stopLookup();stopImages();imagesFor=null;if(view==='images')loadImages(delay);const version=lookupVersion;const q=$('query').value.trim();
     $('reference').href='https://en.wikipedia.org/wiki/Special:Search?search='+encodeURIComponent(q);
     $('reference-label').textContent='Search Wikipedia';$('credit').hidden=true;$('retry').hidden=true;
     if(!q){$('excerpt').textContent='Enter a word or short phrase to see its definition.';return;}
+    const hit=cached('def',q);if(hit){renderDefinition(hit);return;}
     $('excerpt').textContent='Looking up Wikipedia…';$('definition').setAttribute('aria-busy','true');
     lookupTimer=setTimeout(async()=>{
       lookupController=new AbortController();const controller=lookupController;
@@ -99,20 +108,60 @@
           if(!response?.ok)throw new Error('Lookup failed');result=response.result;
         }else result=await CuriousWikipedia.lookup(q,controller.signal);
         if(version!==lookupVersion||panel.hidden)return;
-        if(result.kind==='empty'){$('excerpt').textContent='No Wikipedia definition found. Try a different term, or search Wikipedia.';return;}
-        $('excerpt').textContent=result.kind==='ambiguous'?'This term has several meanings on Wikipedia. Open the article to choose the one you mean.':result.extract;
-        $('source').textContent=(result.matched?'Closest match: ':'From ')+'“'+result.title+'”';
-        $('credit').hidden=false;$('reference').href=result.url;$('reference-label').textContent='Read on Wikipedia';
+        remember('def',q,result);renderDefinition(result);
       }catch{
         if(version!==lookupVersion||panel.hidden)return;
         $('excerpt').textContent='Wikipedia couldn’t load. Try again, or open Wikipedia directly.';$('retry').hidden=false;
       }finally{clearTimeout(timeout);if(version===lookupVersion)$('definition').setAttribute('aria-busy','false');}
     },delay);
   }
+  function renderDefinition(result){
+    if(result.kind==='empty'){$('excerpt').textContent='No Wikipedia definition found. Try a different term, or search Wikipedia.';return;}
+    $('excerpt').textContent=result.kind==='ambiguous'?'This term has several meanings on Wikipedia. Open the article to choose the one you mean.':result.extract;
+    $('source').textContent=(result.matched?'Closest match: ':'From ')+'“'+result.title+'”';
+    $('credit').hidden=false;$('reference').href=result.url;$('reference-label').textContent='Read on Wikipedia';
+  }
+  // Follow-up lookups: a new term replaces the current one in the same card, which stays anchored to the article word.
+  function renderTrail(){const prev=trail[trail.length-1];$('trail').hidden=!prev;if(!prev)return;$('back-term').textContent=prev.q;$('back').title='Back to '+prev.q;$('back').setAttribute('aria-label','Back to '+prev.q+(trail.length>1?', '+trail.length+' earlier terms':''));}
+  function pushStep(q){if(!q)return;trail.push({q,view});if(trail.length>TRAIL_MAX)trail.shift();renderTrail();}
+  function announce(text){const a=$('announce');a.textContent='';setTimeout(()=>{a.textContent=text;},50);}
+  function go(q,v){term=q;editStep=null;hideLookup();$('query').value=q;label();setView(v,false,false);update();renderTrail();}
+  function followUp(raw){
+    const q=raw.replace(/\s+/g,' ').trim().slice(0,200);if(!q)return;hideLookup();
+    if(q.toLowerCase()===term.toLowerCase())return;
+    root.getSelection?.()?.removeAllRanges();getSelection()?.removeAllRanges();
+    pushStep(term);go(q,'explore');announce('Showing '+q);$('back').focus({preventScroll:true});
+  }
+  function back(){const step=trail.pop();if(!step)return;go(step.q,step.view);announce('Back to '+step.q);(trail.length?$('back'):$('close')).focus({preventScroll:true});}
+  $('back').onclick=back;
+  // Text selected inside the definition, read through the shadow root (Chrome) or composed ranges (Safari).
+  function cardSelection(){
+    const s=getSelection();let r=null;
+    try{if(root.getSelection){const rs=root.getSelection();if(rs?.rangeCount)r=rs.getRangeAt(0);}
+      else if(s?.getComposedRanges){try{r=s.getComposedRanges({shadowRoots:[root]})[0];}catch{r=s.getComposedRanges(root)[0];}}
+      else if(s?.rangeCount)r=s.getRangeAt(0);}catch{return null;}
+    if(!r||r.collapsed)return null;const ex=$('excerpt');if(!ex.contains(r.startContainer)||!ex.contains(r.endContainer))return null;
+    const range=document.createRange();range.setStart(r.startContainer,r.startOffset);range.setEnd(r.endContainer,r.endOffset);
+    const text=range.toString().replace(/\s+/g,' ').trim();if(!text||text.length>200)return null;
+    const rects=range.getClientRects();return{text,rect:rects[rects.length-1]||range.getBoundingClientRect()};
+  }
+  function hideLookup(){$('lookup').hidden=true;}
+  function offerLookup(){
+    const s=panel.hidden?null:cardSelection(),b=$('lookup');if(!s||s.text.toLowerCase()===term.toLowerCase()){hideLookup();return;}
+    b.dataset.q=s.text;b.textContent='Look up “'+(s.text.length>32?s.text.slice(0,31)+'…':s.text)+'”';b.setAttribute('aria-label','Look up '+s.text);b.hidden=false;
+    const box=root.querySelector('.body').getBoundingClientRect(),h=b.offsetHeight;let top=s.rect.bottom-box.top+6;if(top+h>box.height-8)top=s.rect.top-box.top-h-6;
+    b.style.top=top+'px';b.style.left=clamp(s.rect.left-box.left,8,box.width-b.offsetWidth-8)+'px';
+  }
+  $('excerpt').addEventListener('mouseup',()=>setTimeout(offerLookup));
+  $('definition').addEventListener('keyup',e=>{if(e.shiftKey)offerLookup();});
+  $('definition').addEventListener('scroll',hideLookup);
+  // Keep the selection while pressing the button; the term is read from the offer, not the live selection.
+  $('lookup').addEventListener('mousedown',e=>e.preventDefault());$('lookup').onclick=()=>followUp($('lookup').dataset.q||'');
+  document.addEventListener('selectionchange',()=>{if(!$('lookup').hidden&&!cardSelection())hideLookup();},on);
   // Explore / Images: a segmented control using the tabs pattern (arrow keys move and select).
   const tabs=['explore','images'];
-  function setView(next,focus){view=next;for(const t of tabs){const b=$('tab-'+t),on=t===next;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;$(t==='explore'?'definition':t).hidden=!on;}
-    if(next!=='images')closeViewer(false);if(focus)$('tab-'+next).focus();if(next==='images'&&imagesFor!==$('query').value.trim())loadImages();}
+  function setView(next,focus,load=true){view=next;hideLookup();for(const t of tabs){const b=$('tab-'+t),on=t===next;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;$(t==='explore'?'definition':t).hidden=!on;}
+    if(next!=='images')closeViewer(false);if(focus)$('tab-'+next).focus();if(load&&next==='images'&&imagesFor!==$('query').value.trim())loadImages();}
   root.querySelector('.views').addEventListener('click',e=>{const b=e.target.closest('[role=tab]');if(b)setView(b.id.slice(4));});
   root.querySelector('.views').addEventListener('keydown',e=>{const i=tabs.indexOf(view),n={ArrowRight:i+1,ArrowLeft:i-1,Home:0,End:tabs.length-1}[e.key];if(n===undefined)return;e.preventDefault();setView(tabs[(n+tabs.length)%tabs.length],true);});
   function stopImages(){clearTimeout(imageController?.timer);imageController?.abort();imageVersion++;$('images').setAttribute('aria-busy','false');}
@@ -120,6 +169,7 @@
   function loadImages(delay=0){
     stopImages();closeViewer(false);const version=imageVersion,q=$('query').value.trim();imagesFor=q;imageItems=[];$('gallery').replaceChildren();$('images-credit').hidden=true;
     if(!q){imageState('Enter a word or short phrase to see images.');return;}
+    const hit=cached('img',q);if(hit){renderImages(hit);return;}
     imageState('Finding images on Wikimedia Commons…');$('images').setAttribute('aria-busy','true');
     const controller=imageController=new AbortController();
     controller.timer=setTimeout(async()=>{
@@ -131,16 +181,19 @@
           if(!response?.ok)throw new Error('Images failed');result=response.result;
         }else result=await CuriousWikipedia.images(q,controller.signal);
         if(version!==imageVersion||panel.hidden)return;
-        if(result.kind==='ambiguous'){imageState('This term has several meanings on Wikipedia. Edit the term to be more specific, or open the article to choose one.');return;}
-        if(result.kind!=='images'){imageState(result.title?'The “'+result.title+'” article has no freely licensed images to show.':'No Wikipedia article matches this term, so there are no images to show.');return;}
-        imageState(result.matched?'Closest match: “'+result.title+'”':'');imageItems=result.items;
-        $('gallery').replaceChildren(...result.items.map(thumbnail));
-        $('images-credit').replaceChildren('Images via ',link('https://commons.wikimedia.org/','Wikimedia Commons'),' · each links to its file page');$('images-credit').hidden=false;
+        remember('img',q,result);renderImages(result);
       }catch{
         if(version!==imageVersion||panel.hidden)return;
         imagesFor=null;imageState('Images couldn’t load. Try again, or open Wikimedia Commons directly.',true);
       }finally{clearTimeout(timeout);if(version===imageVersion)$('images').setAttribute('aria-busy','false');}
     },delay);
+  }
+  function renderImages(result){
+    if(result.kind==='ambiguous'){imageState('This term has several meanings on Wikipedia. Edit the term to be more specific, or open the article to choose one.');return;}
+    if(result.kind!=='images'){imageState(result.title?'The “'+result.title+'” article has no freely licensed images to show.':'No Wikipedia article matches this term, so there are no images to show.');return;}
+    imageState(result.matched?'Closest match: “'+result.title+'”':'');imageItems=result.items;
+    $('gallery').replaceChildren(...result.items.map(thumbnail));
+    $('images-credit').replaceChildren('Images via ',link('https://commons.wikimedia.org/','Wikimedia Commons'),' · each links to its file page');$('images-credit').hidden=false;
   }
   function link(href,text){const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.textContent=text;return a;}
   function license(item){return item.licenseUrl?link(item.licenseUrl,item.license):item.license;}
@@ -168,12 +221,15 @@
   $('viewer').addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=[...$('viewer').querySelectorAll('a,button')],at=f.indexOf(root.activeElement);e.preventDefault();f[(at+(e.shiftKey?-1:1)+f.length)%f.length].focus();});
   $('viewer-img').onerror=()=>{if($('viewer-img').getAttribute('src'))$('viewer-caption').textContent='This image couldn’t load here. Open its file page instead.';};
   $('viewer-close').onclick=()=>closeViewer(true);$('images-retry').onclick=()=>loadImages();
-  function close(){stopLookup();stopImages();closeViewer(false);panel.hidden=true;lastFocus?.focus?.({preventScroll:true});}
+  function close(){stopLookup();stopImages();closeViewer(false);hideLookup();trail=[];editStep=null;renderTrail();panel.hidden=true;lastFocus?.focus?.({preventScroll:true});}
   document.addEventListener('mouseup',e=>{if(e.composedPath().includes(host))return;const target=e.target;if(target.closest?.(editable))return;const q=window.getSelection()?.toString().trim();const at=q&&q.length<=200&&selectionAnchor();if(!at){$('trigger').hidden=true;return;}selected=q;pending=at;$('trigger').hidden=false;placeTrigger();},on);
-  $('trigger').onclick=()=>show(selected);$('close').onclick=close;$('query').oninput=()=>{label();update(450);};$('retry').onclick=()=>update();
+  $('trigger').onclick=()=>show(selected);$('close').onclick=close;$('query').oninput=()=>{if(!editStep){editStep={from:term};pushStep(term);}label();update(450);};
+  // An edit is one step: committed on Enter or blur; an edit that ends on the same term leaves the trail as it was.
+  function commitEdit(){if(!editStep)return;const q=$('query').value.trim();if(editStep.from&&trail[trail.length-1]?.q===editStep.from&&q.toLowerCase()===editStep.from.toLowerCase()){trail.pop();renderTrail();}term=q;editStep=null;}
+  $('query').addEventListener('blur',commitEdit);$('query').addEventListener('keydown',e=>{if(e.key==='Enter')commitEdit();});$('retry').onclick=()=>update();
   document.addEventListener('keydown',e=>{if(e.key!=='Escape'||panel.hidden||e.defaultPrevented)return;const editingPage=e.target!==host&&e.target.closest?.('input,textarea,[contenteditable="true"]');if(editingPage)return;e.stopPropagation();if(!$('viewer').hidden){closeViewer(true);return;}close();},on);
   // Alt+L (Option+L on Mac) opens the note for the current selection without reaching for the mouse.
-  document.addEventListener('keydown',e=>{if(!e.altKey||e.metaKey||e.ctrlKey||e.code!=='KeyL'||e.composedPath().includes(host)||e.target.closest?.(editable))return;const q=getSelection()?.toString().trim();const at=q&&q.length<=200&&selectionAnchor();if(!at)return;e.preventDefault();pending=at;show(q,at);},on);
+  document.addEventListener('keydown',e=>{if(!e.altKey||e.metaKey||e.ctrlKey||e.code!=='KeyL')return;const inCard=!panel.hidden&&cardSelection();if(inCard){e.preventDefault();followUp(inCard.text);return;}if(e.composedPath().includes(host)||e.target.closest?.(editable))return;const q=getSelection()?.toString().trim();const at=q&&q.length<=200&&selectionAnchor();if(!at)return;e.preventDefault();pending=at;show(q,at);},on);
   async function launch(provider){const q=$('query').value.trim();if(!q){$('status').textContent='Enter a concept first.';return;}$('fallback').hidden=true;
     if (typeof chrome!=='undefined'&&chrome.runtime?.id){try{const result=await chrome.runtime.sendMessage({type:'explore',provider,query:q});if(!result?.ok)throw new Error(result?.error);$('status').textContent='Opened in a small window. Close it to come back here.';}catch{$('status').textContent='Could not open search. Check the extension’s search settings and try again.';}return;}
     let saved; try { saved=localStorage.getItem('apture-search'); } catch {}

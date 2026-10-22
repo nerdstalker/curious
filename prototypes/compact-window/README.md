@@ -61,4 +61,14 @@ Checked in Chrome 155 (installed extension, scripted) and the standalone demo; s
 
 The toolbar button now has its own icon and toggles the card per tab. Off is a gray outline note; on is a filled blue note with a yellow highlight, and the tooltip says which state the page is in. A second click removes the card and all of its page listeners (selection, Escape, Option+L). Reloading or leaving the page resets the button to off, since the injected card is gone. The Close button's keyboard focus ring now hugs the button. Checked in scripted Chrome 155: the 15 0.0.3 checks still pass, plus on, off, back on with a single card, Option+L inert while off, and reset on reload. The icon swap itself needs a look by hand in Brave and Safari.
 
+## Follow-up lookups and the Back trail (0.0.6)
+
+MVP user stories 14 and 15. Selecting a word or phrase inside the definition shows a small "Look up “…”" button next to the selection; clicking it (or pressing Option+L / Alt+L while the selection is in the card) looks the new term up in the same card. The headline, Explore and Images update; the card stays anchored to the original article word, above or below as before. Editing the headline also counts as a new step: one step per edit, committed on Enter or when the field loses focus, and an edit that ends on the same term adds nothing.
+
+A Back link under the header ("← marine snow") steps back one term at a time and restores that term's definition, its active view (Explore or Images) and its pictures. Results already loaded in this card are reused, so going back makes no new requests. The trail keeps the last 10 terms. Back is an ordinary button; its accessible name says how many earlier terms there are; the new term is announced through a polite status line ("Showing detritus", "Back to marine snow"). After a follow-up, focus moves to Back; when the trail runs out, focus returns to Close.
+
+Closing the card (Close, Escape, or the toolbar button) clears the trail, and opening a card from the article starts fresh. Escape order is unchanged: the enlarged image first, then the card. A lookup that answers after you have moved on is still ignored. Wikipedia links inside the definition are not clickable: the summary service returns plain text, and links would need its HTML plus sanitizing, so that was left out.
+
+Checked in scripted Chrome 155 (installed extension) and the standalone demo; see the QA report. Brave and Safari need a hand check.
+
 This is throwaway interaction code, not a production extension or complete MVP.
