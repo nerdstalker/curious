@@ -1,2 +1,5 @@
 # Local CodeGraph index; regenerate from source.
 .codegraph/
+
+# Store build output (scripts/build-chrome-zip.mjs).
+dist/

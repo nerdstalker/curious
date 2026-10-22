@@ -10,7 +10,7 @@ chrome.action.onClicked.addListener(async tab => {
     if(!wasOn)await chrome.scripting.executeScript({target:{tabId:tab.id},files:['card.js']});
     await showState(tab.id,!wasOn);
   }
-  catch (e) { console.warn('Open an ordinary article tab to try this prototype.',e.message); }
+  catch (e) { console.warn('Curious can’t run on this page. Open an ordinary web page and try again.',e.message); }
 });
 // A reload or new page drops the injected card, so the button goes back to off.
 chrome.tabs.onUpdated.addListener((tabId,info)=>{if(info.status==='loading')showState(tabId,false).catch(()=>{});});

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Mac app icon source for Curious. Same bubble and bar as the toolbar icon (prototypes/compact-window/*/icons/on-*.png),
+       drawn as vectors on the standard macOS 824px plate. Render with apps/safari/render-app-icon.cjs. -->
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e6ecfb"/>
+    </linearGradient>
+    <linearGradient id="bubble" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2d52d6"/>
+      <stop offset="1" stop-color="#1c3aae"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffdc55"/>
+      <stop offset="1" stop-color="#ffcc2e"/>
+    </linearGradient>
+    <filter id="plate-shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="glyph-shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#14287a" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#plate)" filter="url(#plate-shadow)"/>
+  <rect x="100.5" y="100.5" width="823" height="823" rx="184.5" fill="none" stroke="#000" stroke-opacity="0.06"/>
+  <g filter="url(#glyph-shadow)">
+    <path fill="url(#bubble)" d="M310 252 H714 A84 84 0 0 1 798 336 V584 A84 84 0 0 1 714 668 H452 C410 712 360 752 299 782 C318 742 326 706 322 668 H310 A84 84 0 0 1 226 584 V336 A84 84 0 0 1 310 252 Z"/>
+    <rect x="330" y="408" width="364" height="104" rx="52" fill="url(#bar)"/>
+  </g>
+</svg>

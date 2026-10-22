@@ -232,9 +232,9 @@
   document.addEventListener('keydown',e=>{if(!e.altKey||e.metaKey||e.ctrlKey||e.code!=='KeyL')return;const inCard=!panel.hidden&&cardSelection();if(inCard){e.preventDefault();followUp(inCard.text);return;}if(e.composedPath().includes(host)||e.target.closest?.(editable))return;const q=getSelection()?.toString().trim();const at=q&&q.length<=200&&selectionAnchor();if(!at)return;e.preventDefault();pending=at;show(q,at);},on);
   async function launch(provider){const q=$('query').value.trim();if(!q){$('status').textContent='Enter a concept first.';return;}$('fallback').hidden=true;
     if (typeof chrome!=='undefined'&&chrome.runtime?.id){try{const result=await chrome.runtime.sendMessage({type:'explore',provider,query:q});if(!result?.ok)throw new Error(result?.error);$('status').textContent='Opened in a small window. Close it to come back here.';}catch{$('status').textContent='Could not open search. Check the extension’s search settings and try again.';}return;}
-    let saved; try { saved=localStorage.getItem('apture-search'); } catch {}
+    let saved; try { saved=localStorage.getItem('curious-search'); } catch {}
     const chosen=provider==='youtube'?'youtube':saved;
-    if(!['youtube','google','duck','bing'].includes(chosen)){$('status').textContent='Choose your search provider once on the separate prototype settings page. Browser-default search requires the installed Chrome extension.';return;}
+    if(!['youtube','google','duck','bing'].includes(chosen)){$('status').textContent='Choose a search engine once in Curious settings. Using your browser’s default engine needs the installed extension.';return;}
     const url=urlFor(chosen,q);$('fallback').href=url;$('fallback').hidden=false;
     // Open synchronously during the click; sever the opener before external navigation.
     const w=window.open('about:blank','_blank',`popup=yes,width=${Math.min(720,screen.availWidth)},height=${Math.min(680,screen.availHeight)},left=${Math.max(0,screen.availWidth-750)},top=70`);

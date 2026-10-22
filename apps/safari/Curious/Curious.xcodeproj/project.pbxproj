@@ -1,0 +1,605 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C58EB65D3089BC2000CE5D5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EB65C3089BC2000CE5D5E /* AppDelegate.swift */; };
+		C58EB6613089BC2000CE5D5E /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = C58EB65F3089BC2000CE5D5E /* Main.html */; };
+		C58EB6633089BC2000CE5D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6623089BC2000CE5D5E /* Icon.png */; };
+		C58EB6653089BC2000CE5D5E /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6643089BC2000CE5D5E /* Style.css */; };
+		C58EB6673089BC2000CE5D5E /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6663089BC2000CE5D5E /* Script.js */; };
+		C58EB6693089BC2000CE5D5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EB6683089BC2000CE5D5E /* ViewController.swift */; };
+		C58EB66C3089BC2000CE5D5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58EB66A3089BC2000CE5D5E /* Main.storyboard */; };
+		C58EB66E3089BC2100CE5D5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58EB66D3089BC2100CE5D5E /* Assets.xcassets */; };
+		C58EB6753089BC2200CE5D5E /* Curious Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C58EB6743089BC2200CE5D5E /* Curious Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C58EB67A3089BC2200CE5D5E /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EB6793089BC2200CE5D5E /* SafariWebExtensionHandler.swift */; };
+		C58EB68D3089BC2200CE5D5E /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6863089BC2200CE5D5E /* background.js */; };
+		C58EB68E3089BC2200CE5D5E /* icons in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6873089BC2200CE5D5E /* icons */; };
+		C58EB68F3089BC2200CE5D5E /* wikipedia.js in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6883089BC2200CE5D5E /* wikipedia.js */; };
+		C58EB6903089BC2200CE5D5E /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C58EB6893089BC2200CE5D5E /* manifest.json */; };
+		C58EB6913089BC2200CE5D5E /* settings.html in Resources */ = {isa = PBXBuildFile; fileRef = C58EB68A3089BC2200CE5D5E /* settings.html */; };
+		C58EB6923089BC2200CE5D5E /* card.js in Resources */ = {isa = PBXBuildFile; fileRef = C58EB68B3089BC2200CE5D5E /* card.js */; };
+		C58EB6933089BC2200CE5D5E /* settings.js in Resources */ = {isa = PBXBuildFile; fileRef = C58EB68C3089BC2200CE5D5E /* settings.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C58EB6763089BC2200CE5D5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C58EB6513089BC2000CE5D5E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C58EB6733089BC2200CE5D5E;
+			remoteInfo = "Curious Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C58EB6813089BC2200CE5D5E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				C58EB6753089BC2200CE5D5E /* Curious Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C58EB6593089BC2000CE5D5E /* Curious.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Curious.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C58EB65C3089BC2000CE5D5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C58EB6603089BC2000CE5D5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		C58EB6623089BC2000CE5D5E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		C58EB6643089BC2000CE5D5E /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		C58EB6663089BC2000CE5D5E /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		C58EB6683089BC2000CE5D5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C58EB66B3089BC2000CE5D5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C58EB66D3089BC2100CE5D5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C58EB66F3089BC2100CE5D5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C58EB6743089BC2200CE5D5E /* Curious Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Curious Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C58EB6793089BC2200CE5D5E /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		C58EB67B3089BC2200CE5D5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C58EB6863089BC2200CE5D5E /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = "../../../../prototypes/compact-window/safari-extension/background.js"; sourceTree = "<group>"; };
+		C58EB6873089BC2200CE5D5E /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "../../../../prototypes/compact-window/safari-extension/icons"; sourceTree = "<group>"; };
+		C58EB6883089BC2200CE5D5E /* wikipedia.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = wikipedia.js; path = "../../../../prototypes/compact-window/safari-extension/wikipedia.js"; sourceTree = "<group>"; };
+		C58EB6893089BC2200CE5D5E /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = "../../../../prototypes/compact-window/safari-extension/manifest.json"; sourceTree = "<group>"; };
+		C58EB68A3089BC2200CE5D5E /* settings.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = settings.html; path = "../../../../prototypes/compact-window/safari-extension/settings.html"; sourceTree = "<group>"; };
+		C58EB68B3089BC2200CE5D5E /* card.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = card.js; path = "../../../../prototypes/compact-window/safari-extension/card.js"; sourceTree = "<group>"; };
+		C58EB68C3089BC2200CE5D5E /* settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = settings.js; path = "../../../../prototypes/compact-window/safari-extension/settings.js"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C58EB6563089BC2000CE5D5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		C58EB6713089BC2200CE5D5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C58EB6503089BC2000CE5D5E = {
+			isa = PBXGroup;
+			children = (
+				C58EB65B3089BC2000CE5D5E /* Curious */,
+				C58EB6783089BC2200CE5D5E /* Curious Extension */,
+				C58EB65A3089BC2000CE5D5E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C58EB65A3089BC2000CE5D5E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C58EB6593089BC2000CE5D5E /* Curious.app */,
+				C58EB6743089BC2200CE5D5E /* Curious Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C58EB65B3089BC2000CE5D5E /* Curious */ = {
+			isa = PBXGroup;
+			children = (
+				C58EB65C3089BC2000CE5D5E /* AppDelegate.swift */,
+				C58EB6683089BC2000CE5D5E /* ViewController.swift */,
+				C58EB66A3089BC2000CE5D5E /* Main.storyboard */,
+				C58EB66D3089BC2100CE5D5E /* Assets.xcassets */,
+				C58EB66F3089BC2100CE5D5E /* Info.plist */,
+				C58EB65E3089BC2000CE5D5E /* Resources */,
+			);
+			path = Curious;
+			sourceTree = "<group>";
+		};
+		C58EB65E3089BC2000CE5D5E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C58EB65F3089BC2000CE5D5E /* Main.html */,
+				C58EB6623089BC2000CE5D5E /* Icon.png */,
+				C58EB6643089BC2000CE5D5E /* Style.css */,
+				C58EB6663089BC2000CE5D5E /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C58EB6783089BC2200CE5D5E /* Curious Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C58EB6853089BC2200CE5D5E /* Resources */,
+				C58EB6793089BC2200CE5D5E /* SafariWebExtensionHandler.swift */,
+				C58EB67B3089BC2200CE5D5E /* Info.plist */,
+			);
+			path = "Curious Extension";
+			sourceTree = "<group>";
+		};
+		C58EB6853089BC2200CE5D5E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C58EB6863089BC2200CE5D5E /* background.js */,
+				C58EB6873089BC2200CE5D5E /* icons */,
+				C58EB6883089BC2200CE5D5E /* wikipedia.js */,
+				C58EB6893089BC2200CE5D5E /* manifest.json */,
+				C58EB68A3089BC2200CE5D5E /* settings.html */,
+				C58EB68B3089BC2200CE5D5E /* card.js */,
+				C58EB68C3089BC2200CE5D5E /* settings.js */,
+			);
+			name = Resources;
+			path = "Curious Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C58EB6583089BC2000CE5D5E /* Curious */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C58EB6823089BC2200CE5D5E /* Build configuration list for PBXNativeTarget "Curious" */;
+			buildPhases = (
+				C58EB6553089BC2000CE5D5E /* Sources */,
+				C58EB6563089BC2000CE5D5E /* Frameworks */,
+				C58EB6573089BC2000CE5D5E /* Resources */,
+				C58EB6813089BC2200CE5D5E /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C58EB6773089BC2200CE5D5E /* PBXTargetDependency */,
+			);
+			name = Curious;
+			productName = Curious;
+			productReference = C58EB6593089BC2000CE5D5E /* Curious.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C58EB6733089BC2200CE5D5E /* Curious Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C58EB67E3089BC2200CE5D5E /* Build configuration list for PBXNativeTarget "Curious Extension" */;
+			buildPhases = (
+				C58EB6703089BC2200CE5D5E /* Sources */,
+				C58EB6713089BC2200CE5D5E /* Frameworks */,
+				C58EB6723089BC2200CE5D5E /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "Curious Extension";
+			productName = "Curious Extension";
+			productReference = C58EB6743089BC2200CE5D5E /* Curious Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C58EB6513089BC2000CE5D5E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
+				TargetAttributes = {
+					C58EB6583089BC2000CE5D5E = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					C58EB6733089BC2200CE5D5E = {
+						CreatedOnToolsVersion = 27.1;
+					};
+				};
+			};
+			buildConfigurationList = C58EB6543089BC2000CE5D5E /* Build configuration list for PBXProject "Curious" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C58EB6503089BC2000CE5D5E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C58EB65A3089BC2000CE5D5E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C58EB6583089BC2000CE5D5E /* Curious */,
+				C58EB6733089BC2200CE5D5E /* Curious Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C58EB6573089BC2000CE5D5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C58EB6633089BC2000CE5D5E /* Icon.png in Resources */,
+				C58EB66C3089BC2000CE5D5E /* Main.storyboard in Resources */,
+				C58EB6673089BC2000CE5D5E /* Script.js in Resources */,
+				C58EB6613089BC2000CE5D5E /* Main.html in Resources */,
+				C58EB66E3089BC2100CE5D5E /* Assets.xcassets in Resources */,
+				C58EB6653089BC2000CE5D5E /* Style.css in Resources */,
+			);
+		};
+		C58EB6723089BC2200CE5D5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C58EB6923089BC2200CE5D5E /* card.js in Resources */,
+				C58EB6903089BC2200CE5D5E /* manifest.json in Resources */,
+				C58EB68D3089BC2200CE5D5E /* background.js in Resources */,
+				C58EB68F3089BC2200CE5D5E /* wikipedia.js in Resources */,
+				C58EB68E3089BC2200CE5D5E /* icons in Resources */,
+				C58EB6913089BC2200CE5D5E /* settings.html in Resources */,
+				C58EB6933089BC2200CE5D5E /* settings.js in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C58EB6553089BC2000CE5D5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				C58EB6693089BC2000CE5D5E /* ViewController.swift in Sources */,
+				C58EB65D3089BC2000CE5D5E /* AppDelegate.swift in Sources */,
+			);
+		};
+		C58EB6703089BC2200CE5D5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				C58EB67A3089BC2200CE5D5E /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C58EB6773089BC2200CE5D5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C58EB6733089BC2200CE5D5E /* Curious Extension */;
+			targetProxy = C58EB6763089BC2200CE5D5E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C58EB65F3089BC2000CE5D5E /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C58EB6603089BC2000CE5D5E /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		C58EB66A3089BC2000CE5D5E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C58EB66B3089BC2000CE5D5E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C58EB67C3089BC2200CE5D5E /* Debug configuration for PBXProject "Curious" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C58EB67D3089BC2200CE5D5E /* Release configuration for PBXProject "Curious" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		C58EB67F3089BC2200CE5D5E /* Debug configuration for PBXNativeTarget "Curious Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Curious Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Curious Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Adolfo Foronda. MIT License.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nerdstalker.Curious.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C58EB6803089BC2200CE5D5E /* Release configuration for PBXNativeTarget "Curious Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Curious Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Curious Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Adolfo Foronda. MIT License.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nerdstalker.Curious.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C58EB6833089BC2200CE5D5E /* Debug configuration for PBXNativeTarget "Curious" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Curious/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Curious;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Adolfo Foronda. MIT License.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nerdstalker.Curious;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C58EB6843089BC2200CE5D5E /* Release configuration for PBXNativeTarget "Curious" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Curious/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Curious;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Adolfo Foronda. MIT License.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nerdstalker.Curious;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C58EB6543089BC2000CE5D5E /* Build configuration list for PBXProject "Curious" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C58EB67C3089BC2200CE5D5E /* Debug configuration for PBXProject "Curious" */,
+				C58EB67D3089BC2200CE5D5E /* Release configuration for PBXProject "Curious" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		C58EB67E3089BC2200CE5D5E /* Build configuration list for PBXNativeTarget "Curious Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C58EB67F3089BC2200CE5D5E /* Debug configuration for PBXNativeTarget "Curious Extension" */,
+				C58EB6803089BC2200CE5D5E /* Release configuration for PBXNativeTarget "Curious Extension" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		C58EB6823089BC2200CE5D5E /* Build configuration list for PBXNativeTarget "Curious" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C58EB6833089BC2200CE5D5E /* Debug configuration for PBXNativeTarget "Curious" */,
+				C58EB6843089BC2200CE5D5E /* Release configuration for PBXNativeTarget "Curious" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C58EB6513089BC2000CE5D5E /* Project object */;
+	validationLevel = 1;
+}

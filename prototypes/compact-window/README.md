@@ -10,7 +10,7 @@ Run from the repository root:
 python3 -m http.server 8765 --bind 127.0.0.1 --directory prototypes/compact-window
 ```
 
-Open http://127.0.0.1:8765 in Chrome or Safari. Use the sample button or select article text and click Learn more. YouTube opens directly. For web search in this standalone demo, open Prototype settings once, choose a provider, and return. The demo cannot access a browser's default search API. Preferences persist only in this browser's local storage for this origin.
+Open http://127.0.0.1:8765 in Chrome or Safari. Use the sample button or select article text and click Learn more. YouTube opens directly. For web search in this standalone demo, open Settings once, choose a provider, and return. The demo cannot access a browser's default search API. Preferences persist only in this browser's local storage for this origin.
 
 The `extension` directory contains an unpacked Chrome MV3 experiment. Its options page is registered with the extension, separate from the article. It defaults to Chrome's actual configured search engine via `chrome.search.query`, directing results to a newly created popup tab. An override is stored in `storage.local`. Activate the toolbar action on an ordinary article before selecting text. No host-wide or cookie permission is requested. Installed testing in Brave passed default-provider search, signed-in YouTube, real selection and return at a preserved scroll position; see the detailed QA report. The standalone-demo checks below are separate evidence.
 

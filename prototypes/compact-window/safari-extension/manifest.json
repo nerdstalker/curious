@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Curious (Safari)",
+  "name": "Curious",
   "version": "0.0.6",
   "description": "Select a word or phrase to learn more without losing your place.",
   "permissions": [
