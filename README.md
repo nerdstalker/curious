@@ -2,7 +2,7 @@
 
 Select a word or phrase on a web page, click **Learn more**, and a small note opens right beside it: a short Wikipedia definition, pictures from Wikimedia Commons, and one-click Web and YouTube searches in a compact window. Close the note and you are exactly where you left off.
 
-Curious is a browser extension for Chrome, Brave and Safari. It is an early prototype (version 0.0.6), shared openly as it develops.
+Curious is a browser extension for Chrome, Brave and Safari. It is an early prototype (version 0.0.9), shared openly as it develops.
 
 ![A Curious note open beside the words "marine snow", showing the term "detritus", a Back link to "marine snow", the Explore and Images switcher, a definition and the Read on Wikipedia, Web and YouTube actions](docs/qa/chrome-0.0.6-trail-light-2026-10-21.png)
 
