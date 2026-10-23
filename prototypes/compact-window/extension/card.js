@@ -82,7 +82,8 @@
   // Anchors are stored in page coordinates so the note stays beside its text if the reader scrolls.
   const clamp=(v,min,max)=>Math.max(min,Math.min(v,max));
   function toPage(box,end=box){const x=scrollX,y=scrollY;return{left:box.left+x,right:box.right+x,top:box.top+y,bottom:box.bottom+y,endRight:end.right+x,endTop:end.top+y,endBottom:end.bottom+y};}
-  function selectionAnchor(){const s=getSelection();if(!s?.rangeCount)return null;const range=s.getRangeAt(0),box=range.getBoundingClientRect();if(!box.width&&!box.height)return null;const rects=range.getClientRects();return toPage(box,rects[rects.length-1]||box);}
+  function rangeAnchor(range){if(!range?.startContainer.isConnected)return null;const box=range.getBoundingClientRect();if(!box.width&&!box.height)return null;const rects=range.getClientRects();return toPage(box,rects[rects.length-1]||box);}
+  function selectionAnchor(){const s=getSelection();return s?.rangeCount?rangeAnchor(s.getRangeAt(0)):null;}
   function placeTrigger(){const t=$('trigger'),z=zoom(),vw=document.documentElement.clientWidth,tw=t.offsetWidth*z,th=t.offsetHeight*z;let top=pending.endBottom+6;if(top+th>scrollY+innerHeight-8)top=pending.endTop-th-6;t.style.left=clamp(pending.endRight-12,scrollX+8,scrollX+vw-tw-8)/z+'px';t.style.top=top/z+'px';}
   function placeCard(keepSide){
     const vw=document.documentElement.clientWidth,vh=innerHeight,z=zoom();
@@ -104,7 +105,15 @@
   // Every page-level listener shares one signal so the toolbar button can switch the card off cleanly.
   const life=new AbortController(),on={signal:life.signal};
   const resizer=new ResizeObserver(()=>{if(!panel.hidden&&anchor&&side==='above')placeCard(true);});resizer.observe(panel);
-  addEventListener('resize',()=>{if(!panel.hidden)placeCard(true);},on);
+  // Zoom or a window resize reflows the text, so the stored position is stale: measure the words again and pick the side afresh.
+  // Page zoom doesn't fire the same event in every browser, so the visual viewport and the page's own layout box are watched too.
+  let refit=0;
+  function refitSoon(){cancelAnimationFrame(refit);refit=requestAnimationFrame(()=>{
+    if(!panel.hidden){anchor=rangeAnchor(returnRange)||anchor;placeCard();}
+    else if(!$('trigger').hidden&&pendingRange){pending=rangeAnchor(pendingRange)||pending;placeTrigger();}
+  });}
+  addEventListener('resize',refitSoon,on);visualViewport?.addEventListener('resize',refitSoon,on);
+  const pageResizer=new ResizeObserver(refitSoon);pageResizer.observe(document.documentElement);
   function label(){const q=$('query').value.trim();panel.setAttribute('aria-label',q?'Learn more: '+q:'Learn more');}
   function show(q,at=pending){selected=q;anchor=at;lastFocus=document.activeElement;pagePointer=false;returnRange=at===pending?pendingRange:null;$('query').value=q;term=q;trail=[];editStep=null;renderTrail();hideLookup();setShown($('trigger'),false);$('status').textContent='';$('fallback').hidden=true;label();setView('explore');setShown(panel,true);placeCard();update();$('close').focus({preventScroll:true});}
   function stopLookup(){clearTimeout(lookupTimer);lookupController?.abort();lookupVersion++;$('definition').setAttribute('aria-busy','false');}
@@ -309,5 +318,5 @@
   // Pages that re-render the whole document can drop unknown children of <html>; put the card back with whatever was showing.
   const keeper=new MutationObserver(()=>{if(host.isConnected||!document.documentElement)return;document.documentElement.append(host);keeper.observe(document.documentElement,{childList:true});for(const el of [$('trigger'),panel,$('viewer')])if(!el.hidden)setShown(el,true);});
   keeper.observe(document,{childList:true});keeper.observe(document.documentElement,{childList:true});
-  window.__curiousCard={off(){dropMark();stopLookup();stopImages();life.abort();resizer.disconnect();keeper.disconnect();host.remove();delete window.__curiousCard;}};
+  window.__curiousCard={off(){dropMark();stopLookup();stopImages();life.abort();resizer.disconnect();pageResizer.disconnect();cancelAnimationFrame(refit);keeper.disconnect();host.remove();delete window.__curiousCard;}};
 })();

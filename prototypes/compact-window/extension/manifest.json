@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Be Curious",
   "short_name": "Curious",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Select a word or phrase to learn more without losing your place.",
   "permissions": [
     "activeTab",
