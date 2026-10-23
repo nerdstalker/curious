@@ -1,10 +1,10 @@
-# Chrome Web Store listing: Curious
+# Chrome Web Store listing: Be Curious
 
 Paste each block into the matching field of the Chrome Web Store Developer Dashboard. The same listing serves Brave, which installs from the Chrome Web Store. Customer-facing text here contains no em-dashes; keep it that way when editing.
 
 ## Store listing tab
 
-**Name** (from the manifest): Curious
+**Name** (from the manifest): Be Curious. The store title comes from the manifest `name`, so set `"name": "Be Curious"` and `"short_name": "Curious"` in `extension/manifest.json` before packaging; the browser's own UI keeps saying Curious where space is short.
 
 **Short description** (126 of 132 characters; the dashboard takes this from the manifest `description` if you leave it, which is the shorter "Select a word or phrase to learn more without losing your place."):
 
@@ -28,17 +28,17 @@ WHAT YOU GET
 • Keyboard friendly: Option+L (Alt+L) opens the card for your selection, Esc closes it
 
 HOW IT WORKS
-1. Click the Curious button in your toolbar to turn it on for the page you're reading.
+1. Click the Be Curious button in your toolbar to turn it on for the page you're reading.
 2. Select a word or phrase and click Learn more.
 3. Read, look at pictures, or explore further. Press Esc when you're done.
 
 PRIVATE BY DESIGN
-• Curious only runs on a tab after you click its toolbar button.
+• Be Curious only runs on a tab after you click its toolbar button.
 • Only the words you select are sent to Wikipedia, without cookies or the page address.
 • No account, no analytics, no ads, no tracking. The only thing saved is your search engine choice, on your device.
 • Open source under the MIT License: github.com/nerdstalker/curious
 
-Definitions and pictures come from Wikipedia and Wikimedia Commons and keep their original licenses. Curious is an independent project and is not affiliated with the Wikimedia Foundation.
+Definitions and pictures come from Wikipedia and Wikimedia Commons and keep their original licenses. Be Curious is an independent project and is not affiliated with the Wikimedia Foundation.
 ```
 
 **Category:** Education (alternative: Productivity > Tools, if the dashboard's category list has changed).
@@ -64,17 +64,17 @@ Suggested screenshot captions, if the dashboard asks: "A short definition right 
 **Single purpose:**
 
 ```
-Curious shows a small reference card for a word or phrase the reader selects on a web page: a short Wikipedia definition, pictures from the matching Wikipedia article, and buttons to look the term up further, so the reader can learn about it without leaving the page.
+Be Curious shows a small reference card for a word or phrase the reader selects on a web page: a short Wikipedia definition, pictures from the matching Wikipedia article, and buttons to look the term up further, so the reader can learn about it without leaving the page.
 ```
 
 **Permission justifications:**
 
 | Permission | Justification |
 | --- | --- |
-| `activeTab` | Lets Curious run on the current tab only after the user clicks its toolbar button, so it never has access to pages the user has not turned it on for. |
-| `scripting` | Inserts the Curious card script into the tab the user turned it on for, and removes it when the user clicks the toolbar button again. |
+| `activeTab` | Lets Be Curious run on the current tab only after the user clicks its toolbar button, so it never has access to pages the user has not turned it on for. |
+| `scripting` | Inserts the Be Curious card script into the tab the user turned it on for, and removes it when the user clicks the toolbar button again. |
 | `storage` | Saves the user's search engine choice from the settings page, locally on this device. |
-| `search` | When the user clicks Web, sends the selected term to the browser's own default search engine with chrome.search.query, so Curious never has to choose an engine for the user. |
+| `search` | When the user clicks Web, sends the selected term to the browser's own default search engine with chrome.search.query, so Be Curious never has to choose an engine for the user. |
 | Host `https://en.wikipedia.org/*` | Fetches the short definition, the matching article title, and the article's picture list and credits for the term the user selected, from English Wikipedia's public API. |
 
 **Remote code:** No, I am not using remote code. All JavaScript is in the package; the extension only fetches JSON data from Wikipedia.
