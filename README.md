@@ -2,7 +2,7 @@
 
 Select a word or phrase on a web page, click **Learn more**, and a small note opens right beside it: a short Wikipedia definition, pictures from Wikimedia Commons, and one-click Web and YouTube searches in a compact window. Close the note and you are exactly where you left off.
 
-Curious is a browser extension for Chrome, Brave and Safari. It is an early prototype (version 0.0.10), shared openly as it develops.
+Curious is a browser extension for Chrome, Brave and Safari. It is an early prototype (version 0.0.12), shared openly as it develops.
 
 ![A Curious note open beside the words "marine snow", showing the term "detritus", a Back link to "marine snow", the Explore and Images switcher, a definition and the Read on Wikipedia, Web and YouTube actions](docs/qa/chrome-0.0.6-trail-light-2026-10-21.png)
 
@@ -14,6 +14,7 @@ Curious is a browser extension for Chrome, Brave and Safari. It is an early prot
 - **Follow-up lookups.** Select a word inside the definition and choose Look up to explore it in the same note. A Back link steps through the terms you visited.
 - **Web and YouTube.** Each opens a small separate window. Chrome and Brave use your browser's default search engine; Safari asks you to pick a provider once in the extension's settings. Close the window to return to your article.
 - **Light and dark.** The note follows your system appearance. Escape closes it.
+- **Per page, or always on a site.** Clicking the toolbar button turns Curious on for the page you are on. Right-click the button and choose **Always on this site** or **On all sites** to have it load by itself; the browser asks you first. **Stop on this site**, **Stop on all sites** and the Sites list in settings turn it off again. The icon shows off, on for this page, or always on for this site.
 
 | Images | Enlarged image | Dark mode |
 | --- | --- | --- |
@@ -49,11 +50,11 @@ Then open http://127.0.0.1:8765.
 
 ## Data use
 
-- Only the term you look up is sent, and only to `https://en.wikipedia.org`, the extension's single host permission. Requests leave out cookies and the page address.
+- Only the term you look up is sent, and only to `https://en.wikipedia.org`, the extension's only required host permission. Requests leave out cookies and the page address.
 - Pictures load from `upload.wikimedia.org` and `thumb.wikimedia.org` without cookies or referrer.
 - Web and YouTube searches open the real sites in a normal browser window, under your existing browser session.
-- Curious keeps no history and has no server or account. The only thing it stores is your search-provider choice, in the browser's extension storage.
-- The extension runs on a page only after you turn it on with the toolbar button.
+- Curious keeps no history and has no server or account. The only things it stores are your search-provider choice and the sites you chose, in the browser's extension storage.
+- The extension runs only on pages you turn on with the toolbar button, and on sites you chose with Always on this site or On all sites. Installing it grants no website access; those choices ask the browser for access to that site (or all sites) when you make them, and the list of sites stays in the browser's extension storage on this device.
 
 ## Project layout
 

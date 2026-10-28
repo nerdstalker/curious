@@ -318,5 +318,9 @@
   // Pages that re-render the whole document can drop unknown children of <html>; put the card back with whatever was showing.
   const keeper=new MutationObserver(()=>{if(host.isConnected||!document.documentElement)return;document.documentElement.append(host);keeper.observe(document.documentElement,{childList:true});for(const el of [$('trigger'),panel,$('viewer')])if(!el.hidden)setShown(el,true);});
   keeper.observe(document,{childList:true});keeper.observe(document.documentElement,{childList:true});
+  // Tell the extension the card is on this page, now and whenever the page comes back from the back/forward cache, so its toolbar icon matches.
+  const present=()=>{try{if(typeof chrome!=='undefined'&&chrome.runtime?.id)chrome.runtime.sendMessage({type:'card'}).catch(()=>{});}catch{}};
+  addEventListener('pageshow',e=>{if(e.persisted)present();},on);
   window.__curiousCard={off(){dropMark();stopLookup();stopImages();life.abort();resizer.disconnect();pageResizer.disconnect();cancelAnimationFrame(refit);keeper.disconnect();host.remove();delete window.__curiousCard;}};
+  present();
 })();

@@ -31,11 +31,12 @@ HOW IT WORKS
 1. Click the Be Curious button in your toolbar to turn it on for the page you're reading.
 2. Select a word or phrase and click Learn more.
 3. Read, look at pictures, or explore further. Press Esc when you're done.
+4. Reading a site often? Right-click the button and choose Always on this site, or On all sites, so Be Curious is ready without a click. Chrome asks you first, and you can stop any time from the same menu or the settings page.
 
 PRIVATE BY DESIGN
-• Be Curious only runs on a tab after you click its toolbar button.
+• Be Curious runs only on pages you turn it on for, or on sites you choose to keep it on. Installing it gives it no access to any website.
 • Only the words you select are sent to Wikipedia, without cookies or the page address.
-• No account, no analytics, no ads, no tracking. The only thing saved is your search engine choice, on your device.
+• No account, no analytics, no ads, no tracking. The only things saved are your search engine choice and the sites you chose, on your device.
 • Open source under the MIT License: github.com/nerdstalker/curious
 
 Definitions and pictures come from Wikipedia and Wikimedia Commons and keep their original licenses. Be Curious is an independent project and is not affiliated with the Wikimedia Foundation.
@@ -72,10 +73,12 @@ Be Curious shows a small reference card for a word or phrase the reader selects 
 | Permission | Justification |
 | --- | --- |
 | `activeTab` | Lets Be Curious run on the current tab only after the user clicks its toolbar button, so it never has access to pages the user has not turned it on for. |
-| `scripting` | Inserts the Be Curious card script into the tab the user turned it on for, and removes it when the user clicks the toolbar button again. |
-| `storage` | Saves the user's search engine choice from the settings page, locally on this device. |
+| `scripting` | Inserts the Be Curious card script into the tab the user turned it on for, and removes it when the user clicks the toolbar button again. On sites the user chose to keep it on, registers the same card script to load there automatically (scripting.registerContentScripts), and unregisters it when the user stops. |
+| `storage` | Saves the user's search engine choice and the list of sites the user chose to keep Be Curious on, locally on this device. |
+| `contextMenus` | Adds four items to the menu that opens when the user right-clicks the Be Curious toolbar button: Always on this site, Stop on this site, On all sites, Stop on all sites. Nothing is added to the menus of web pages. |
 | `search` | When the user clicks Web, sends the selected term to the browser's own default search engine with chrome.search.query, so Be Curious never has to choose an engine for the user. |
 | Host `https://en.wikipedia.org/*` | Fetches the short definition, the matching article title, and the article's picture list and credits for the term the user selected, from English Wikipedia's public API. |
+| Optional host `http://*/*`, `https://*/*` | Not granted at install, and never requested on its own. Requested at runtime only when the user picks Always on this site (then only that site's origin is requested, for example `https://www.example.com/*`) or On all sites (both patterns), through Chrome's own permission prompt. Used only to load the Be Curious card script automatically on those sites, so the user does not have to click the toolbar button on every page. On those pages Be Curious does nothing until the user selects text and clicks Learn more, and it sends only that selected text to Wikipedia, as on any other page. The user can remove the access from the toolbar menu (Stop on this site, Stop on all sites), the settings page, or chrome://extensions, and Be Curious then unregisters the script. |
 
 **Remote code:** No, I am not using remote code. All JavaScript is in the package; the extension only fetches JSON data from Wikipedia.
 
@@ -89,7 +92,7 @@ Be Curious shows a small reference card for a word or phrase the reader selects 
 | Authentication information | No | |
 | Personal communications | No | |
 | Location | No | |
-| Web history | No | The page address is never sent or stored. |
+| Web history | No | The page address is never sent or stored. The list of sites the user chose to keep Be Curious on stays on the device and is never sent. |
 | User activity | No | No clicks, keystrokes or scrolling are recorded. |
 | Website content | **Yes** | The text the user selects (up to 200 characters) is sent to en.wikipedia.org to fetch the definition. It is not stored. This is the only data that leaves the device. |
 

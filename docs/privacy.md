@@ -1,12 +1,20 @@
 # Curious privacy policy
 
-Effective October 21, 2026. Applies to the Curious browser extension for Chrome, Brave and other Chromium browsers, and to the Curious app and extension for Safari on Mac.
+Effective October 26, 2026. Applies to the Curious browser extension for Chrome, Brave and other Chromium browsers, and to the Curious app and extension for Safari on Mac.
 
 Curious has no account, no server of its own, no analytics and no ads. It does not collect, sell or share personal information. This page explains exactly what leaves your device and why.
 
 ## When Curious runs
 
-Curious does nothing on a page until you click its toolbar button on that tab. Clicking it again, reloading the page or opening a new page turns it off. It cannot read pages you have not turned it on for.
+Curious runs only on pages and sites you turn it on for.
+
+**One page at a time (the default).** Curious does nothing on a page until you click its toolbar button on that tab. Clicking it again, reloading the page or opening a new page turns it off. Installing Curious does not give it access to any website.
+
+**Sites you choose.** If you want, right-click the toolbar button and choose **Always on this site** or **On all sites**. Your browser asks you to approve that access first, and Curious gets nothing unless you approve. After that, Curious loads by itself on pages of that site (or of every site) when they open. On those pages it does nothing until you select text and click Learn more, and then it sends only the words you selected, as described below.
+
+You can take that access back at any time: choose **Stop on this site** or **Stop on all sites** from the same menu, remove a site in Curious settings, or remove the access in your browser's own extension settings. Clicking the toolbar button still turns Curious off for the page you are on.
+
+Curious cannot read pages or sites you have not turned it on for.
 
 ## What is sent, and where
 
@@ -22,21 +30,25 @@ Like any website, Wikimedia receives your IP address and browser type with these
 
 ## What is stored
 
-Curious stores one thing: your search engine choice from its settings page. It is kept in the browser's extension storage on this device only. It is not synced or sent anywhere.
+Curious stores two things, in the browser's extension storage on this device only. They are not synced or sent anywhere.
+
+- Your search engine choice from its settings page.
+- The sites where you chose Always on this site (for example `www.example.com`), whether you chose On all sites, and any sites you then stopped. This is only the list of sites you picked, never the pages you visit there. Removing a site deletes it from the list.
 
 The terms you look up and the Back trail inside the card exist only while the card is open on that page. They are not saved, and they are gone when you close the card or leave the page.
 
 ## What Curious does not do
 
 - No analytics, telemetry, crash reporting or tracking of any kind.
-- No reading of pages you have not turned Curious on for.
+- No reading of pages or sites you have not turned Curious on for.
+- No record of the pages you visit, including on sites where it is always on.
 - No access to your cookies, passwords, browsing history or bookmarks.
 - No selling, sharing or transferring of data to anyone, and no use of data for advertising, credit or lending decisions.
 - No remote code. Everything Curious runs is included in the extension package.
 
 ## The Safari app
 
-On Mac, Curious is installed as a small app that contains the Safari extension. The app itself only shows how to turn the extension on in Safari Settings. It collects nothing. The extension works as described above, except that Safari does not let extensions use the browser's default search engine, so Web searches use the engine you choose once in Curious settings.
+On Mac, Curious is installed as a small app that contains the Safari extension. The app itself only shows how to turn the extension on in Safari Settings. It collects nothing. The extension works as described above, except that Safari does not let extensions use the browser's default search engine, so Web searches use the engine you choose once in Curious settings. Safari also asks you itself before Curious can run on a website, and keeps its own per-site choices in Safari Settings > Extensions > Curious. If you choose On all sites in Safari, Safari may still ask once for each website before Curious runs there, unless you allow every website in those settings.
 
 ## Children
 

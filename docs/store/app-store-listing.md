@@ -27,10 +27,10 @@ Be Curious is a Safari extension for readers. Select a word or phrase on any web
 • Keyboard friendly: Option+L opens the card for your selection, Esc closes it
 
 GETTING STARTED
-Open Curious once, then turn on the Curious extension in Safari Settings > Extensions. On any page, click the Curious button in the Safari toolbar to turn it on for that page. To pick the search engine for the Web button, open Curious settings from Safari Settings > Extensions.
+Open Curious once, then turn on the Curious extension in Safari Settings > Extensions. On any page, click the Curious button in the Safari toolbar to turn it on for that page. To have it ready on a site you read often, right-click the button and choose Always on this site, or On all sites; Safari asks you first. To pick the search engine for the Web button, open Curious settings from Safari Settings > Extensions.
 
 PRIVATE BY DESIGN
-Be Curious only runs on a page after you click its toolbar button. Only the words you select are sent to Wikipedia, without cookies or the page address. No account, no analytics, no ads, no tracking. Open source under the MIT License.
+Be Curious runs only on pages you turn it on for, or on sites you choose to keep it on. Only the words you select are sent to Wikipedia, without cookies or the page address. No account, no analytics, no ads, no tracking. Open source under the MIT License.
 
 Definitions and pictures come from Wikipedia and Wikimedia Commons and keep their original licenses. Be Curious is not affiliated with the Wikimedia Foundation.
 ```
@@ -62,6 +62,7 @@ To test:
 4. Select a word, for example "plankton", and click the "Learn more" button that appears beside it. A card shows a Wikipedia definition.
 5. Click Images to see pictures with credits. Select a word inside the card and click "Look up" to follow it; "Back" returns. Press Esc to close.
 6. Web opens a small search window. In Safari, choose the search engine once in Curious settings (Safari Settings > Extensions > Curious > Settings).
+7. Optional: right-click (or Control-click) the Curious toolbar button and choose "Always on this site". Approve the site when Safari asks. Open another page on the same site: Curious is already on, without a click. "Stop on this site" in the same menu, or Remove in Curious settings, turns it off again.
 
-No account or login is needed. The extension sends only the selected term to en.wikipedia.org and stores only the search engine choice locally. No data is collected.
+No account or login is needed. The extension sends only the selected term to en.wikipedia.org and stores only the search engine choice and the sites the user chose, locally. No data is collected.
 ```

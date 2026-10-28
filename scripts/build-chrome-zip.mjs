@@ -14,9 +14,11 @@ const dist = path.join(root, 'dist');
 
 // Only these files ship. Anything else in the folder (notes, test copies, .DS_Store) is left out.
 const SHIP = ['manifest.json', 'background.js', 'card.js', 'wikipedia.js', 'settings.html', 'settings.js',
-  ...['off', 'on'].flatMap(s => [16, 32, 48, 128].map(n => `icons/${s}-${n}.png`))];
-const PERMISSIONS = ['activeTab', 'scripting', 'storage', 'search'];
+  ...['off', 'on', 'always'].flatMap(s => [16, 32, 48, 128].map(n => `icons/${s}-${n}.png`))];
+const PERMISSIONS = ['activeTab', 'scripting', 'storage', 'contextMenus', 'search'];
 const HOSTS = ['https://en.wikipedia.org/*'];
+// Asked for only when the reader chooses Always on this site (one origin) or On all sites; nothing is granted at install.
+const OPTIONAL_HOSTS = ['http://*/*', 'https://*/*'];
 
 const errors = [];
 const check = (ok, message) => { if (!ok) errors.push(message); };
@@ -29,12 +31,13 @@ if (hosts.length !== (manifest.host_permissions || []).length) console.log('Remo
 manifest.host_permissions = hosts;
 
 check(manifest.manifest_version === 3, 'manifest_version must be 3');
-check(manifest.name === 'Curious', `name must be "Curious" (found "${manifest.name}")`);
+check(manifest.name === 'Be Curious' && manifest.short_name === 'Curious', `name must be "Be Curious" with short_name "Curious" (found "${manifest.name}" / "${manifest.short_name}")`);
 check(/^\d+(\.\d+){0,3}$/.test(manifest.version) && manifest.version.split('.').every(n => +n <= 65535), `version "${manifest.version}" is not a valid Chrome version`);
 check(typeof manifest.description === 'string' && manifest.description.length > 0 && manifest.description.length <= 132, 'description must be 1 to 132 characters');
 check(JSON.stringify([...manifest.permissions].sort()) === JSON.stringify([...PERMISSIONS].sort()), `permissions must be exactly ${PERMISSIONS.join(', ')} (found ${manifest.permissions.join(', ')})`);
 check(JSON.stringify(hosts) === JSON.stringify(HOSTS), `host_permissions must be exactly ${HOSTS.join(', ')} (found ${hosts.join(', ')})`);
-check(!manifest.content_scripts && !manifest.optional_permissions && !manifest.optional_host_permissions && !manifest.externally_connectable && !manifest.web_accessible_resources, 'unexpected content_scripts, optional permissions, externally_connectable or web_accessible_resources');
+check(JSON.stringify(manifest.optional_host_permissions) === JSON.stringify(OPTIONAL_HOSTS), `optional_host_permissions must be exactly ${OPTIONAL_HOSTS.join(', ')}`);
+check(!manifest.content_scripts && !manifest.optional_permissions && !manifest.externally_connectable && !manifest.web_accessible_resources, 'unexpected content_scripts, optional permissions, externally_connectable or web_accessible_resources');
 check(manifest.background?.service_worker === 'background.js', 'background.service_worker must be background.js');
 check(manifest.options_ui?.page === 'settings.html', 'options_ui.page must be settings.html');
 check(manifest.icons?.['128'], 'a 128px icon is required by the store');
@@ -49,7 +52,7 @@ for (const copy of ['prototypes/compact-window/card.js', 'prototypes/compact-win
 // Product wording: no working name, no prototype language, no remote code.
 for (const f of SHIP.filter(f => /\.(js|html|json)$/.test(f))) {
   const text = f === 'manifest.json' ? JSON.stringify(manifest) : fs.readFileSync(path.join(src, f), 'utf8');
-  check(!/apture/i.test(text), `${f} mentions Apture`);
+  check(!/\bapture\b/i.test(text), `${f} mentions Apture`);
   check(!/prototype/i.test(text), `${f} contains prototype wording`);
   check(!/<script[^>]+src=["']https?:|import\(\s*["']https?:|importScripts\(\s*["']https?:|\beval\(/.test(text), `${f} loads remote or evaluated code`);
 }
@@ -71,5 +74,5 @@ try {
   execFileSync('zip', ['-q', '-r', '-X', '-D', out, ...SHIP], {cwd: stage});
   const listed = execFileSync('unzip', ['-Z1', out], {encoding: 'utf8'}).trim().split('\n').sort();
   if (JSON.stringify(listed) !== JSON.stringify([...SHIP].sort())) { console.error('Zip contents do not match the ship list:', listed); process.exit(1); }
-  console.log(`Built ${path.relative(root, out)} (${fs.statSync(out).size} bytes, ${listed.length} files). Curious ${manifest.version}, permissions: ${manifest.permissions.join(', ')}; host: ${hosts.join(', ')}.`);
+  console.log(`Built ${path.relative(root, out)} (${fs.statSync(out).size} bytes, ${listed.length} files). Curious ${manifest.version}, permissions: ${manifest.permissions.join(', ')}; host: ${hosts.join(', ')}; optional hosts: ${OPTIONAL_HOSTS.join(', ')}.`);
 } finally { fs.rmSync(stage, {recursive: true, force: true}); }

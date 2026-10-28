@@ -42,9 +42,9 @@ The listing materials stay ready for when this is unblocked.
 1. Sign in to the Chrome Web Store Developer Dashboard with the existing publisher account.
 2. In Account, check the contact email is verified and the trader or non-trader choice is set; traders must show an address and phone publicly (EU rule).
 3. Build the upload: `node scripts/build-chrome-zip.mjs`. It validates the manifest (permissions, host, version, description length, no test hosts, no remote code, matching card.js copies) and prints the zip path.
-4. Dashboard > New item > upload `dist/curious-chrome-0.0.6.zip`.
+4. Dashboard > New item > upload `dist/curious-chrome-0.0.12.zip`.
 5. Store listing tab: paste from `chrome-listing.md`, upload the icon, the five screenshots and the small promo tile.
-6. Privacy practices tab: single purpose, the five permission justifications, remote code "No", the data-usage boxes and certifications, and the privacy policy URL from step 1. All in `chrome-listing.md`.
+6. Privacy practices tab: single purpose, the seven permission justifications, remote code "No", the data-usage boxes and certifications, and the privacy policy URL from step 1. All in `chrome-listing.md`.
 7. Distribution tab: Public, all regions.
 8. Submit for review. Reviews usually take a few days; the dashboard emails the result. Brave users install from the same Chrome Web Store page; there is no separate Brave store.
 
@@ -72,7 +72,7 @@ Uses the existing Apple Developer Program membership (Individual) that MatAdmin 
 ## Before you submit
 
 - **Mac app icon.** Done: a sharp 1024x1024 icon is drawn as a vector in `apps/safari/AppIcon.svg` (the same blue bubble and yellow bar as the toolbar icon, on the standard macOS plate). `apps/safari/render-app-icon.cjs` renders every size in `AppIcon.appiconset` plus the app window's `Icon.png`.
-- **Version numbers.** The extension is 0.0.6; the Mac app is 1.0 (build 1). Each new App Store upload needs a higher build number; each new Chrome upload needs a higher manifest version.
+- **Version numbers.** The extension is 0.0.12; the Mac app is 1.0 (build 1). Each new App Store upload needs a higher build number; each new Chrome upload needs a higher manifest version.
 - **iOS and iPadOS.** The Xcode project is macOS only. Adding iPhone and iPad is possible with `xcrun safari-web-extension-converter --rebuild-project` but needs touch-friendly checks of the card first. Ask before adding it.
 
 ## Rebuilding things
