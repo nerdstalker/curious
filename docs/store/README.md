@@ -4,9 +4,9 @@ Everything that can be prepared without the owner's accounts is in this reposito
 
 | What | Status | Cost |
 | --- | --- | --- |
-| GitHub Pages (privacy policy page) | Ready to turn on | Free |
+| GitHub Pages (privacy policy page) | **Live** at `https://nerdstalker.github.io/curious/privacy/` | Free |
+| Chrome Web Store (covers Brave) | **Submitted for review 2026-10-28** (version 0.0.12) | None: the owner's existing publisher account |
 | Mac App Store, existing Apple Developer membership (Individual) | Ready, step 3 | None now. Membership is active until July 11, 2027 with auto-renew off |
-| Chrome Web Store (covers Brave) | **Blocked**: only if the owner's Google account already has a Chrome Web Store publisher account | None if it exists. Otherwise the one-time US$5 registration is a new fee and is not planned |
 
 ## What is already prepared
 
@@ -23,30 +23,22 @@ Everything that can be prepared without the owner's accounts is in this reposito
 | Safari Mac app (Xcode project) | `apps/safari/Curious/Curious.xcodeproj` |
 | Screenshot capture script and sample article | `docs/store/capture/` |
 
-## 1. Publish the privacy policy (free, about 5 minutes)
+## 1. Publish the privacy policy: done
 
-Both stores need a privacy policy URL.
+GitHub Pages serves `main` /`docs`, so `https://nerdstalker.github.io/curious/privacy/` republishes on every push. Pages serves everything in `docs/`, including the internal design notes; the repository is already public, so nothing new is exposed.
 
-1. Commit and push this work to `main` on github.com/nerdstalker/curious.
-2. On GitHub: repository Settings > Pages > Build and deployment > Source: "Deploy from a branch", Branch: `main`, folder: `/docs`. Save.
-3. After a minute, open `https://nerdstalker.github.io/curious/privacy/` and check it loads.
+## 2. Chrome Web Store (and Brave): submitted
 
-Note: Pages serves everything in `docs/`, including the internal design notes. The repository is already public, so nothing new is exposed, but if you would rather publish only the policy, skip Pages and use `https://github.com/nerdstalker/curious/blob/main/docs/privacy.md` instead. Both stores accept it.
+Submitted for review on 2026-10-28 from the owner's existing publisher account, so no fee.
 
-## 2. Chrome Web Store (and Brave): blocked
-
-**Blocked until the owner confirms an existing Chrome Web Store publisher account.** A Chrome Web Store publisher account is separate from a Google Play Console account, so if MatAdmin was published through Google Play Console, that does not cover it. Owner to confirm which Google account MatAdmin used. To check at no cost: sign in at chrome.google.com/webstore/devconsole with that Google account. If the dashboard opens, the account exists and the steps below apply. If it asks for the registration fee, stop: that is a new fee and is not planned (see "No-fee alternatives" below).
-
-The listing materials stay ready for when this is unblocked.
-
-1. Sign in to the Chrome Web Store Developer Dashboard with the existing publisher account.
-2. In Account, check the contact email is verified and the trader or non-trader choice is set; traders must show an address and phone publicly (EU rule).
-3. Build the upload: `node scripts/build-chrome-zip.mjs`. It validates the manifest (permissions, host, version, description length, no test hosts, no remote code, matching card.js copies) and prints the zip path.
-4. Dashboard > New item > upload `dist/curious-chrome-0.0.12.zip`.
-5. Store listing tab: paste from `chrome-listing.md`, upload the icon, the five screenshots and the small promo tile.
-6. Privacy practices tab: single purpose, the seven permission justifications, remote code "No", the data-usage boxes and certifications, and the privacy policy URL from step 1. All in `chrome-listing.md`.
-7. Distribution tab: Public, all regions.
-8. Submit for review. Reviews usually take a few days; the dashboard emails the result. Brave users install from the same Chrome Web Store page; there is no separate Brave store.
+- **Item:** Be Curious, ID `ljhakdhddlgedpglifohenfojpdllgkh`, version 0.0.12, built with `node scripts/build-chrome-zip.mjs` from commit `2998a27`.
+- **Dashboard:** chrome.google.com/webstore/devconsole. Status and the review result show there, and Google emails the publisher's verified contact email.
+- **Publisher settings:** contact email verified, non-trader account (so no public address).
+- **Listing:** filled from `chrome-listing.md`: five screenshots in the order listed there, the small promo tile, Education, English, homepage and support URLs, the seven permission justifications, remote code "No", only Website content under data usage, all three certifications.
+- **Review:** the optional all-sites host permission triggers an in-depth review, so expect several days. If it is rejected, the email names the policy; fix it, raise the manifest version and resubmit.
+- **While in review:** don't upload a new package, because that restarts the review. Changes ship as the next version after approval.
+- **If it passes:** if automatic publishing was turned off at submit, click Publish within 30 days or the approval expires. Brave users install from the same Chrome Web Store page; there is no separate Brave store.
+- **Later updates:** raise `version` in the manifest, rebuild the zip, then Package > Upload new package on the same item, and Submit for review.
 
 ## 3. Mac App Store (Safari), existing membership
 
@@ -64,7 +56,7 @@ Uses the existing Apple Developer Program membership (Individual) that MatAdmin 
 7. In Xcode: set the scheme destination to "Any Mac", then Product > Archive. In the Organizer: Distribute App > App Store Connect > Upload. Export compliance is already answered in the project (`ITSAppUsesNonExemptEncryption = NO`, it only uses HTTPS).
 8. Back in App Store Connect, select the uploaded build for version 1.0, paste the App Review notes from `app-store-listing.md`, and Submit for Review. Reviews usually take one to three days.
 
-## No-fee alternatives for Chrome and Brave (no action yet)
+## No-fee alternatives for Chrome and Brave (not needed now that the Chrome Web Store item exists)
 
 - **GitHub release.** Attach `dist/curious-chrome-<version>.zip` to a GitHub release. Users unzip it, open chrome://extensions (or brave://extensions), turn on Developer mode and click Load unpacked. Free, but Chrome shows a developer-mode warning and there are no automatic updates.
 - **Microsoft Edge Add-ons.** Registration in Microsoft Partner Center is free and the same MV3 zip runs in Edge. The `search` permission works there too. Reuses the Chrome listing text, screenshots and privacy policy. Reaches Edge users only.
